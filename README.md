@@ -62,7 +62,7 @@ weights/
 
 ### 1. ViMo MLLM
 
-Training has two stages on top of a frozen TSIM-Tok. The basic recipe below uses DeepSpeed ZeRO-1 (`configs/sft.yaml`), no gradient checkpointing, and no sequence packing.
+Training has two stages on top of a frozen TSIM-Tok. The basic recipe below is the simplest path for reproducing ViMo MLLM training.
 
 ```bash
 # Stage 1: alignment. Train the generation MLP and visual head.
@@ -76,8 +76,6 @@ STAGE1_MODEL_PATH=./Checkpoints_MLLM/vimo_stage1/.../tfmr \
 DATA_PATH=data/vimo_sft_sample.json \
 bash scripts/vimo/train_vimo_stage2.sh
 ```
-
-`train/train_vimo.py` exposes `--stage {1,2}` and a `--shuffle` flag, which defaults to `False`.
 
 ### ViMo Inference
 
