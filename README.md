@@ -2,7 +2,7 @@
 
 # ViMo: Thinking with Visual Updates for Unified Multimodal Understanding and Generation
 
-**An interleaved multimodal reasoning model with compact, variation-aware visual updates.**
+**An interleaved multimodal reasoning model that thinks with visual updates — modeling only the sparse visual changes across reasoning steps instead of regenerating full images.**
 
 <p>
   <a href="#vimo-workflow">ViMo Workflow</a> |
