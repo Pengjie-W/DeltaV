@@ -17,7 +17,7 @@
 
 ---
 
-ViMo builds on unified multimodal understanding and generation models (UMMs) for interleaved multimodal reasoning. It represents evolving visual states through compact **incremental visual tokens** that focus on sparse but reasoning-relevant changes across reasoning steps, reducing redundant modeling of largely unchanged visual content. Token budgets are allocated by the **TSIM Router** with temporal-similarity routing, and visual states are encoded by the **TSIM-Tok** tokenizer.
+ViMo is a unified multimodal framework for interleaved multimodal reasoning. It represents evolving visual states through compact **incremental visual tokens** that focus on sparse but reasoning-relevant changes across reasoning steps, reducing redundant modeling of largely unchanged visual content. Token budgets are allocated by the **TSIM Router** with temporal-similarity routing, and visual states are encoded by the **TSIM-Tok** tokenizer.
 
 This repository releases the **2B ViMo MLLM** together with the **TSIM-Tok tokenizer**, training scripts, inference scripts, evaluation utilities, and tiny samples.
 
