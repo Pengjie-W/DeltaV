@@ -23,13 +23,7 @@ This repository releases the **2B ViMo MLLM** together with the **TSIM-Tok token
 
 ## Demo
 
-<p align="center">
-  <video src="docs/assets/vimo-demo.mp4" controls muted playsinline width="100%"></video>
-</p>
-
-<p align="center">
-  <a href="docs/assets/vimo-demo.mp4"><b>Open demo video</b></a>
-</p>
+https://github.com/user-attachments/assets/6733d07a-2406-4212-9074-433a49ce6686
 
 ## Repository Layout
 
