@@ -1,0 +1,73 @@
+[
+  {
+    "config": "Visual Logic & Strategic Games - Tetris",
+    "input_prompt": "Fill the entire grid EXCEPT for the blue shape shown in the puzzle. Pick the option that consists of exactly all cells not occupied by the blue shape.\n\n",
+    "input_image": [
+      "data/image/Zebra-CoT-Converted-filtered-0311/Visual Logic & Strategic Games - Tetris__sample_006782__problem_01.jpg"
+    ],
+    "output_image": [
+      "data/image/Zebra-CoT-Converted-filtered-0311/Visual Logic & Strategic Games - Tetris__sample_006782__reasoning_01.jpg",
+      "data/image/Zebra-CoT-Converted-filtered-0311/Visual Logic & Strategic Games - Tetris__sample_006782__reasoning_02.jpg",
+      "data/image/Zebra-CoT-Converted-filtered-0311/Visual Logic & Strategic Games - Tetris__sample_006782__reasoning_03.jpg",
+      "data/image/Zebra-CoT-Converted-filtered-0311/Visual Logic & Strategic Games - Tetris__sample_006782__reasoning_04.jpg",
+      "data/image/Zebra-CoT-Converted-filtered-0311/Visual Logic & Strategic Games - Tetris__sample_006782__reasoning_05.jpg"
+    ],
+    "output_text": "THOUGHT 0: First, identify the specific cells occupied by the blue shape within the grid.\n<|vision_start|><|vision_end|>\nTHOUGHT 1: Next, determine the complement of this shape, which is the area of the grid not covered by blue cells.\n<|vision_start|><|vision_end|>\nTHOUGHT 2: The goal is to find which option provides pieces that perfectly tile this non-blue area.\nTHOUGHT 3: Begin testing option D by placing the first piece onto the grid's empty cells.\n<|vision_start|><|vision_end|>\nTHOUGHT 4: Add the second piece from option D to continue filling the remaining space.\n<|vision_start|><|vision_end|>\nTHOUGHT 5: Place the third piece from option D to complete the tiling of the non-blue area.\n<|vision_start|><|vision_end|>\nTHOUGHT 6: The pieces from option D precisely cover all cells not occupied by the original blue shape.\nTHOUGHT 7: Thus, option D correctly represents the required set of cells.\n\nFinal Answer: The correct answer is D.",
+    "validity": "VALID",
+    "num_tokens": [
+      144,
+      100,
+      81,
+      81,
+      49,
+      49
+    ],
+    "token_status": "ok"
+  },
+  {
+    "config": "Visual Logic & Strategic Games - Tetris",
+    "input_prompt": "Apply the following sequence of transformations to the red shape: rotate 90° clockwise, then translate 1 up, then rotate 90° clockwise. Choose the option that shows the resulting shape.\n\n",
+    "input_image": [
+      "data/image/Zebra-CoT-Converted-filtered-0311/Visual Logic & Strategic Games - Tetris__sample_001445__problem_01.jpg"
+    ],
+    "output_image": [
+      "data/image/Zebra-CoT-Converted-filtered-0311/Visual Logic & Strategic Games - Tetris__sample_001445__reasoning_01.jpg",
+      "data/image/Zebra-CoT-Converted-filtered-0311/Visual Logic & Strategic Games - Tetris__sample_001445__reasoning_02.jpg",
+      "data/image/Zebra-CoT-Converted-filtered-0311/Visual Logic & Strategic Games - Tetris__sample_001445__reasoning_03.jpg",
+      "data/image/Zebra-CoT-Converted-filtered-0311/Visual Logic & Strategic Games - Tetris__sample_001445__reasoning_04.jpg"
+    ],
+    "output_text": "THOUGHT 0: The problem asks to apply a sequence of transformations to the initial red shape and identify the final result among the given options.\nTHOUGHT 1: I will start with the initial shape as shown in the puzzle section.\n<|vision_start|><|vision_end|>\nTHOUGHT 2: The first transformation is a 90° clockwise rotation of the initial shape.\n<|vision_start|><|vision_end|>\nTHOUGHT 3: Next, I will apply the translation of 1 unit up to the rotated shape.\n<|vision_start|><|vision_end|>\nTHOUGHT 4: The final transformation is another 90° clockwise rotation of the shape after the translation.\n<|vision_start|><|vision_end|>\nTHOUGHT 5: Now I will compare the final transformed shape with the given options A, B, C, and D.\nTHOUGHT 6: The shape in option A matches the final transformed shape exactly.\n\nFinal Answer: The correct answer is A.",
+    "validity": "VALID",
+    "num_tokens": [
+      144,
+      81,
+      49,
+      49,
+      49
+    ],
+    "token_status": "ok"
+  },
+  {
+    "config": "Visual Logic & Strategic Games - Chess",
+    "input_prompt": "What is the best move for White to play?\n\nA: Rdd2\nB: Ra2\nC: c4\nD: Ke4\n\n",
+    "input_image": [
+      "data/image/Zebra-CoT-Converted-filtered-0311/Visual Logic & Strategic Games - Chess__sample_007452__problem_01.jpg"
+    ],
+    "output_image": [
+      "data/image/Zebra-CoT-Converted-filtered-0311/Visual Logic & Strategic Games - Chess__sample_007452__reasoning_01.jpg",
+      "data/image/Zebra-CoT-Converted-filtered-0311/Visual Logic & Strategic Games - Chess__sample_007452__reasoning_02.jpg",
+      "data/image/Zebra-CoT-Converted-filtered-0311/Visual Logic & Strategic Games - Chess__sample_007452__reasoning_03.jpg",
+      "data/image/Zebra-CoT-Converted-filtered-0311/Visual Logic & Strategic Games - Chess__sample_007452__reasoning_04.jpg"
+    ],
+    "output_text": "THOUGHT 0: The problem asks for the best move for White in the given chess position. I need to evaluate the available options and determine which move provides White with the greatest advantage or best prospects.\nTHOUGHT 1: Let's first evaluate option A, Rdd2. This move centralizes the rook and potentially prepares to double rooks on the d-file. Let's visualize this position.\n<|vision_start|><|vision_end|>\nTHOUGHT 2: After Rdd2, the rook is active on the d-file. However, the rook on a1 is still passive, and Black's pieces seem well-placed to defend.\nTHOUGHT 3: Next, let's evaluate option B, Ra2. This move brings the rook to the second rank, potentially supporting a pawn push or preparing to transfer to another file. Let's visualize this position.\n<|vision_start|><|vision_end|>\nTHOUGHT 4: After Ra2, the rook is now on the second rank, which is often a good defensive or offensive post. This position seems more harmonious than after Rdd2.\nTHOUGHT 5: Now let's consider option C, c4. This is a pawn push in the center. Let's visualize the position after this move.\n<|vision_start|><|vision_end|>\nTHOUGHT 6: After c4, White expands in the center. However, this move might weaken the pawn structure or create targets for Black. Black's pieces seem well-positioned to react.\nTHOUGHT 7: Finally, let's evaluate option D, Ke4. Moving the king into the center seems risky, especially with Black's pieces still on the board. Let's visualize this position.\n<|vision_start|><|vision_end|>\nTHOUGHT 8: After Ke4, the white king is exposed in the center. This move significantly weakens White's position and is likely not the best choice.\nTHOUGHT 9: Comparing the options, Ra2 (Option B) seems to improve White's rook placement and overall coordination the most effectively without creating immediate weaknesses, unlike the other options.\n\nFinal Answer: B",
+    "validity": "VALID",
+    "num_tokens": [
+      144,
+      9,
+      9,
+      9,
+      9
+    ],
+    "token_status": "ok"
+  }
+]

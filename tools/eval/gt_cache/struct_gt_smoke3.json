@@ -1,0 +1,82 @@
+[
+  {
+    "id": "000000",
+    "prompt": "Consider a sliding block puzzle of grid size 5 * 4 units. It has 9 wooden blocks of varying sizes: one 2 * 2, four 1 * 2, two 2 * 1, and two 1 * 1. The grid also has two empty 1 * 1 spaces. Blocks may only be slid horizontally or vertically by one unit. The images show the starting and ending configurations of the puzzle. What is the minimum number of moves required to reach the ending configuration from the starting configuration?",
+    "reference_image": [
+      "mllm_process/data_generation/wood_data_22222/images/wood_slide/wood_slide_20704_start.jpg",
+      "mllm_process/data_generation/wood_data_22222/images/wood_slide/wood_slide_20704_end.jpg"
+    ],
+    "config": "",
+    "output_text": "<|vision_start|><|vision_end|> Step 1: Block '4' is moved from position 10 to 6 (up). <|vision_start|><|vision_end|> Step 2: Block '4' is moved from position 6 to 11 (right). <|vision_start|><|vision_end|> Step 3: Block '5' is moved from position 10 to 6 (up). <|vision_start|><|vision_end|> Step 4: Block '4' is moved from position 7 to 6 (left). <|vision_start|><|vision_end|> Step 5: Block '8' is moved from position 10 to 14 (down). <|vision_start|><|vision_end|> Step 6: Block '4' is moved from position 6 to 11 (right). <|vision_start|><|vision_end|> Step 7: Block '4' is moved from position 11 to 10 (left). <|vision_start|><|vision_end|> Step 8: Block '4' is moved from position 10 to 7 (right). <|vision_start|><|vision_end|> Step 9: Block '1' is moved from position 8 to 0 (unknown). <|vision_start|><|vision_end|> Step 10: Block '9' is moved from position 16 to 18 (unknown). <|vision_start|><|vision_end|> Step 11: Block '4' is moved from position 10 to 8 (unknown). <|vision_start|><|vision_end|> Step 12: Block '4' is moved from position 8 to 10 (unknown). <|vision_start|><|vision_end|> Step 13: Block '6' is moved from position 16 to 8 (unknown). <|vision_start|><|vision_end|> Step 14: Block '4' is moved from position 10 to 9 (left). <|vision_start|><|vision_end|> Step 15: Block '5' is moved from position 11 to 10 (left). <|vision_start|><|vision_end|> Step 16: Block '7' is moved from position 17 to 9 (unknown). <|vision_start|><|vision_end|> Step 17: Block '6' is moved from position 8 to 16 (unknown). Final Answer: 17.",
+    "output_image": [
+      "mllm_process/data_generation/wood_data_22222/images/wood_slide/wood_slide_20704_step_1.jpg",
+      "mllm_process/data_generation/wood_data_22222/images/wood_slide/wood_slide_20704_step_2.jpg",
+      "mllm_process/data_generation/wood_data_22222/images/wood_slide/wood_slide_20704_step_3.jpg",
+      "mllm_process/data_generation/wood_data_22222/images/wood_slide/wood_slide_20704_step_4.jpg",
+      "mllm_process/data_generation/wood_data_22222/images/wood_slide/wood_slide_20704_step_5.jpg",
+      "mllm_process/data_generation/wood_data_22222/images/wood_slide/wood_slide_20704_step_6.jpg",
+      "mllm_process/data_generation/wood_data_22222/images/wood_slide/wood_slide_20704_step_7.jpg",
+      "mllm_process/data_generation/wood_data_22222/images/wood_slide/wood_slide_20704_step_8.jpg",
+      "mllm_process/data_generation/wood_data_22222/images/wood_slide/wood_slide_20704_step_9.jpg",
+      "mllm_process/data_generation/wood_data_22222/images/wood_slide/wood_slide_20704_step_10.jpg",
+      "mllm_process/data_generation/wood_data_22222/images/wood_slide/wood_slide_20704_step_11.jpg",
+      "mllm_process/data_generation/wood_data_22222/images/wood_slide/wood_slide_20704_step_12.jpg",
+      "mllm_process/data_generation/wood_data_22222/images/wood_slide/wood_slide_20704_step_13.jpg",
+      "mllm_process/data_generation/wood_data_22222/images/wood_slide/wood_slide_20704_step_14.jpg",
+      "mllm_process/data_generation/wood_data_22222/images/wood_slide/wood_slide_20704_step_15.jpg",
+      "mllm_process/data_generation/wood_data_22222/images/wood_slide/wood_slide_20704_step_16.jpg",
+      "mllm_process/data_generation/wood_data_22222/images/wood_slide/wood_slide_20704_step_17.jpg"
+    ],
+    "gt": "17.",
+    "gt_extract_method": "rule",
+    "gt_filter_decision": "KEEP",
+    "gt_filter_reason": "The extracted answer '17.' is explicitly stated in the output text as the final answer and provides a concrete numerical value answering the question.",
+    "gt_filter_method": "api",
+    "gt_filter_raw_response": "{\n  \"decision\": \"KEEP\",\n  \"reason\": \"The extracted answer '17.' is explicitly stated in the output text as the final answer and provides a concrete numerical value answering the question.\"\n}",
+    "major_category": "Strategic Game and Planning"
+  },
+  {
+    "id": "000001",
+    "prompt": "A checker game is being played on a grid of 12 squares with 6 green and 5 red checkers. Initially, the checkers are arranged as shown in the starting configuration with the 11 checkers occupying 11 squares and one unoccupied square. Green checkers only move rightward and red checkers only move leftward. Every move is either i) a slide to the adjacent empty square, or ii) a jump over one position to an empty square, provided the checker being jumped over is of a different colour. Each square can accommodate a maximum of one checker at any time. How many moves are required to reach the ending configuration from the starting configuration following the specified rules?",
+    "reference_image": [
+      "mllm_process/data_generation/checker_data_22222/images/checker_move/checker_01988_start.jpg",
+      "mllm_process/data_generation/checker_data_22222/images/checker_move/checker_01988_end.jpg"
+    ],
+    "config": "",
+    "output_text": "<|vision_start|><|vision_end|> Step 1: The green checker jumps right from square 1 to square 3. Final Answer: 1.",
+    "output_image": [
+      "mllm_process/data_generation/checker_data_22222/images/checker_move/checker_01988_step_1.jpg"
+    ],
+    "gt": "1.",
+    "gt_extract_method": "rule",
+    "gt_filter_decision": "KEEP",
+    "gt_filter_reason": "The extracted answer '1.' is directly supported by the output text 'Final Answer: 1.' and represents a concrete numeric value answering the question.",
+    "gt_filter_method": "api",
+    "gt_filter_raw_response": "{\n  \"decision\": \"KEEP\",\n  \"reason\": \"The extracted answer '1.' is directly supported by the output text 'Final Answer: 1.' and represents a concrete numeric value answering the question.\"\n}",
+    "major_category": "Strategic Game and Planning"
+  },
+  {
+    "id": "000002",
+    "prompt": "A checker game is being played on a grid of 14 squares with 9 green and 4 red checkers. Initially, the checkers are arranged as shown in the starting configuration with the 13 checkers occupying 13 squares and one unoccupied square. Green checkers only move rightward and red checkers only move leftward. Every move is either i) a slide to the adjacent empty square, or ii) a jump over one position to an empty square, provided the checker being jumped over is of a different colour. Each square can accommodate a maximum of one checker at any time. How many moves are required to reach the ending configuration from the starting configuration following the specified rules?",
+    "reference_image": [
+      "mllm_process/data_generation/checker_data_22222/images/checker_move/checker_16370_start.jpg",
+      "mllm_process/data_generation/checker_data_22222/images/checker_move/checker_16370_end.jpg"
+    ],
+    "config": "",
+    "output_text": "<|vision_start|><|vision_end|> Step 1: The red checker jumps left from square 9 to square 7. <|vision_start|><|vision_end|> Step 2: The red checker jumps left from square 11 to square 9. <|vision_start|><|vision_end|> Step 3: The red checker jumps left from square 13 to square 11. <|vision_start|><|vision_end|> Step 4: The red checker slides left from square 14 to square 13. <|vision_start|><|vision_end|> Step 5: The green checker jumps right from square 12 to square 14. Final Answer: 5.",
+    "output_image": [
+      "mllm_process/data_generation/checker_data_22222/images/checker_move/checker_16370_step_1.jpg",
+      "mllm_process/data_generation/checker_data_22222/images/checker_move/checker_16370_step_2.jpg",
+      "mllm_process/data_generation/checker_data_22222/images/checker_move/checker_16370_step_3.jpg",
+      "mllm_process/data_generation/checker_data_22222/images/checker_move/checker_16370_step_4.jpg",
+      "mllm_process/data_generation/checker_data_22222/images/checker_move/checker_16370_step_5.jpg"
+    ],
+    "gt": "5.",
+    "gt_extract_method": "rule",
+    "gt_filter_decision": "KEEP",
+    "gt_filter_reason": "The extracted answer '5.' is explicitly present in the output text as the final answer and provides the specific numerical value requested by the question.",
+    "gt_filter_method": "api",
+    "gt_filter_raw_response": "{\n  \"decision\": \"KEEP\",\n  \"reason\": \"The extracted answer '5.' is explicitly present in the output text as the final answer and provides the specific numerical value requested by the question.\"\n}",
+    "major_category": "Strategic Game and Planning"
+  }
+]

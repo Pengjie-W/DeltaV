@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Local configuration and secrets
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa*
+
+# Logs and generated outputs
+*.log
+runs/
+wandb/
+outputs/
+checkpoints/
+tmp/
+temp/
+
+# Model and dataset artifacts
+*.ckpt
+*.pt
+*.pth
+*.safetensors
+*.bin
+*.onnx
+*.npy
+*.npz
+
+# OS and editor files
+.DS_Store
+.idea/
+.vscode/

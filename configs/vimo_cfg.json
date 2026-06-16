@@ -1,0 +1,36 @@
+{
+    "gen_cfg": {
+      "gen_dim": 512,
+      "mlp_layers": 2,
+      "n_base": 144,
+      "n_delta": [144],
+      "history_token_multiplier": 32,
+      "num_register_tokens": 4,
+      "incremental_encoding": true
+    },
+    "vq_cfg": {
+      "codebook_size": 16384,
+      "codebook_slots_embed_dim": 12,
+      "commit_loss_beta": 0.25,
+      "entropy_loss_ratio": 0.0,
+      "codebook_l2_norm": true,
+      "codebook_show_usage": false
+    },
+    "enc_cfg": {
+      "depth": 6,
+      "num_feature_levels": 4,
+      "enc_n_points": 16,
+      "rope_1d": true
+    },
+    "dec_cfg": {
+      "depth": 6,
+      "num_head": 8,
+      "mlp_dim": 2048,
+      "dim_head": 64,
+      "dropout": 0.1,
+      "decoder_dropout": 0.0,
+      "ch_mult": [1, 1, 2, 2, 4],
+      "z_channels": 512,
+      "rope_1d": true
+    }
+  }

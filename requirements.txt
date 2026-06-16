@@ -1,0 +1,40 @@
+# Core (ViMo + TSIM-Tok training / inference)
+torch>=2.1
+torchvision
+transformers==4.57.0        # pinned: supports Qwen3-VL and still exposes DefaultFastImageProcessorKwargs (removed in transformers 5.x)
+accelerate>=0.34
+deepspeed==0.17.1           # ZeRO-1 (basic) / ZeRO-3 (advanced)
+einops
+numpy
+scipy
+scikit-image               # SSIM for tokenizer eval / similarity pipeline
+Pillow
+timm
+safetensors
+tqdm
+wandb
+tensorboard
+omegaconf
+
+# TSIM-Tok training extras (vfmtok framework + data)
+kornia
+lmdb
+torch-fidelity
+
+# Data-processing pipeline
+ijson
+orjson
+smart_open
+pandas
+
+# Evaluation (LLM-API scoring for Zebra-CoT / StructCoT)
+openai
+requests
+tabulate
+tensorflow==2.20.0         # Inception-based FID/IS evaluator (vimo/tsim_tok/training/evaluations/evaluator.py)
+nvidia-cudnn-cu12==9.17.1.4 # TF 2.20 needs CuDNN>=9.3; torch alone pins 9.1.0.70 (too low) -> "No DNN in stream executor"
+
+# Optional, performance only:
+# flash-attn            # faster attention (build against your CUDA/torch)
+# MultiScaleDeformableAttention  # compiled op under tsim_tok/modules/ops (see INSTALL.md);
+#                                # a pure-PyTorch fallback is used if not built.
