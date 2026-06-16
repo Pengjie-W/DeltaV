@@ -23,7 +23,7 @@ This repository releases the **2B ViMo MLLM** together with the **TSIM-Tok token
 
 ## Demo
 
-https://github.com/user-attachments/assets/bcdbc886-55a0-40ba-ac81-5ae3cf7944ee
+https://github.com/user-attachments/assets/c5f8c754-f59c-4bf4-9750-9be4396ee172
 
 ## Repository Layout
 
