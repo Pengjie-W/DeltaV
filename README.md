@@ -4,14 +4,10 @@
 
 **An interleaved multimodal reasoning model that thinks with visual updates — modeling only the sparse visual changes across reasoning steps instead of regenerating full images.**
 
-<p>
-  <a href="#vimo-workflow">ViMo Workflow</a> |
-  <a href="#installation">Installation</a> |
-  <a href="#training-and-inference">Training & Inference</a> |
-  <a href="#documentation">Docs</a> |
-  <a href="#analysis">Analysis</a> |
-  <a href="#benchmark">Benchmark</a>
-</p>
+[![arXiv](https://img.shields.io/badge/Arxiv-ViMo-b31b1b.svg?logo=arXiv)]()
+[![HuggingFace](https://img.shields.io/badge/HuggingFace-ViMo--2B-yellow.svg?logo=HuggingFace)](https://huggingface.co/dle666/ViMo-2B/tree/main)
+[![ModelScope](https://img.shields.io/badge/ModelScope-ViMo--2B-green.svg)](https://www.modelscope.cn/models/wpj2003/ViMo-2B)
+[![Website](https://img.shields.io/badge/Website-ViMo-blue.svg)]()
 
 </div>
 
@@ -49,7 +45,25 @@ pip install torch torchvision --index-url https://download.pytorch.org/whl/cu121
 pip install -r requirements.txt
 ```
 
-Put the released checkpoints under `weights/`:
+### Download Checkpoints
+
+Download our models from Huggingface.
+
+```bash
+pip install huggingface_hub
+
+python tools/download_model.py -n ViMo-2B      # or TSIM-Tok
+```
+
+You can also download our models from ModelScope.
+
+```bash
+pip install modelscope
+
+python tools/download_model.py -t modelscope -n ViMo-2B   # or TSIM-Tok
+```
+
+The released checkpoints are placed under `weights/`:
 
 ```text
 weights/
