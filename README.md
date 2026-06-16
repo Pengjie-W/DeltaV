@@ -2,10 +2,10 @@
 
 # ViMo: Thinking with Visual Updates for Unified Multimodal Understanding and Generation
 
-**A unified multimodal model that reasons through compact visual updates instead of regenerating every intermediate visual state.**
+**An interleaved multimodal reasoning model with compact, variation-aware visual updates.**
 
 <p>
-  <a href="#demo">Demo</a> |
+  <a href="#vimo-workflow">ViMo Workflow</a> |
   <a href="#installation">Installation</a> |
   <a href="#training-and-inference">Training & Inference</a> |
   <a href="#documentation">Docs</a> |
@@ -17,26 +17,26 @@
 
 ---
 
-ViMo is a unified multimodal model (UMM) for interleaved multimodal reasoning and generation. Instead of modeling every intermediate visual state as a full image, ViMo predicts only sparse **incremental visual tokens** for the parts that change between reasoning steps. Token budgets are allocated by the **TSIM Router** with temporal-similarity routing, and visual states are encoded by the **TSIM-Tok** tokenizer.
+ViMo builds on unified multimodal understanding and generation models (UMMs) for interleaved multimodal reasoning. It represents evolving visual states through compact **incremental visual tokens** that focus on sparse but reasoning-relevant changes across reasoning steps, reducing redundant modeling of largely unchanged visual content. Token budgets are allocated by the **TSIM Router** with temporal-similarity routing, and visual states are encoded by the **TSIM-Tok** tokenizer.
 
-This repository releases the **2B ViMo MLLM** together with the **TSIM-Tok tokenizer**, training scripts, inference scripts, evaluation utilities, and tiny runnable samples.
+This repository releases the **2B ViMo MLLM** together with the **TSIM-Tok tokenizer**, training scripts, inference scripts, evaluation utilities, and tiny samples.
 
-## Demo
+## ViMo Workflow
 
 https://github.com/user-attachments/assets/6733d07a-2406-4212-9074-433a49ce6686
 
 ## Repository Layout
 
 ```text
-vimo/        ViMo model code: modeling, processing, configuration, backbone, rope2d
+vimo/        ViMo model code: modeling, processing, configuration, backbone
   tsim_tok/  TSIM-Tok visual tokenizer and TSIM Router
 train/       Training entry points
 inference/   Inference and TSIM-Tok evaluation
 scripts/     Ready-to-run scripts for ViMo, TSIM-Tok, and data utilities
 configs/     Model and acceleration configs
-data/        Tiny runnable samples
+data/        Tiny samples
 docs/        Extended tutorials and README media assets
-tools/       Data processing, evaluation, inference post-processing, checkpoint remapping
+tools/       Data processing, evaluation, and inference post-processing
 ```
 
 ## Installation
@@ -138,7 +138,7 @@ bash scripts/tsim_tok/eval_tsim_tok.sh
 
 ## Analysis
 
-Compact visual updates preserve reconstruction quality with fewer visual tokens and improve downstream reasoning over full-image modeling.
+Compact visual updates preserve reconstruction quality with fewer visual tokens and improve multimodal reasoning over full-image modeling.
 
 <p align="center">
   <img src="docs/assets/vimo-effectiveness.png" alt="Comparison of full-image modeling and incremental visual modeling under different token budgets" width="72%">
