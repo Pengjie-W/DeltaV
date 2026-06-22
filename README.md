@@ -1,8 +1,8 @@
 <div align="center">
 
-# ViMo: Thinking with Visual Updates for Unified Multimodal Understanding and Generation
+# ViMo: Thinking with Visual Updates in Unified Multimodal Models
 
-**An interleaved multimodal reasoning model that thinks with visual updates — modeling only the sparse visual changes across reasoning steps instead of regenerating full images.**
+**An unified multimodal model that thinks with visual updates — modeling only the sparse visual changes across reasoning steps instead of regenerating full images.**
 
 [![arXiv](https://img.shields.io/badge/Arxiv-ViMo-b31b1b.svg?logo=arXiv)]()
 [![HuggingFace](https://img.shields.io/badge/HuggingFace-ViMo--2B-yellow.svg?logo=HuggingFace)](https://huggingface.co/dle666/ViMo-2B/tree/main)
@@ -15,13 +15,13 @@
 
 ## News
 
-* ```2026.06.22 ``` 🚀 We release [ViMo-2B](https://huggingface.co/dle666/ViMo-2B/tree/main), a unified multimodal understanding and generation model for interleaved multimodal reasoning.
+* ```2026.06.22 ``` 🚀 We release [ViMo-2B](https://huggingface.co/dle666/ViMo-2B/tree/main), a unified multimodal model for interleaved multimodal reasoning.
 
 ## Introduction
 
-ViMo is a unified multimodal understanding and generation model (UMM) for interleaved multimodal reasoning. It represents evolving visual states through compact **incremental visual tokens** that focus on sparse but reasoning-relevant changes across reasoning steps, reducing redundant modeling of largely unchanged visual content. Token budgets are allocated by the **TSIM Router** with temporal-similarity routing, and visual states are encoded by the **TSIM-Tok** tokenizer.
+ViMo is a unified multimodal model (UMM) that integrates multimodal understanding and generation for interleaved multimodal reasoning. It represents evolving visual states through compact **incremental visual tokens** that focus on sparse but reasoning-relevant changes across reasoning steps, reducing redundant modeling of largely unchanged visual content. Token budgets are allocated by the **TSIM Router** with temporal-similarity routing, and visual states are encoded by the **TSIM-Tok** tokenizer.
 
-This repository releases the **2B ViMo MLLM** together with the **TSIM-Tok tokenizer**, training scripts, inference scripts, evaluation utilities, and tiny samples.
+This repository releases the **ViMo-2B UMM** together with the **TSIM-Tok tokenizer**, training scripts, inference scripts, evaluation utilities, and tiny samples.
 
 ## ViMo Workflow
 
@@ -80,9 +80,9 @@ weights/
 
 ## Training and Inference
 
-### 1. ViMo MLLM
+### 1. ViMo UMM
 
-Training has two stages on top of a frozen TSIM-Tok. The basic recipe below is the simplest path for reproducing ViMo MLLM training.
+Training has two stages on top of a frozen TSIM-Tok. The basic recipe below is the simplest path for reproducing ViMo UMM training.
 
 ```bash
 # Stage 1: alignment. Train the generation MLP and visual head.
