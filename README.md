@@ -221,7 +221,7 @@ Same initialization, dataset, and 30K training steps.
 
 ## Acknowledgements
 
-We sincerely thank the authors and open-source communities of **Qwen3-VL**, **VFM-Tok**, and **Zebra-CoT** for their valuable work and contributions.
+We would like to thank [Qwen3-VL](https://github.com/QwenLM/Qwen3-VL) and [VFMTok](https://github.com/CVMI-Lab/VFMTok) for providing base models and code, as well as their contributions to this field. We also thank [Zebra-CoT](https://huggingface.co/datasets/multimodal-reasoning-lab/Zebra-CoT) for providing a valuable interleaved multimodal reasoning dataset. We also thank everyone who contributed to this open-source effort.
 
 ## Copyright
 
