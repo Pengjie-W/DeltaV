@@ -218,3 +218,13 @@ Same initialization, dataset, and 30K training steps.
 | Bagel-Zebra-CoT | 7B | 64.9 | 20.6 | 62.6 | 1647 | 55.6 | 72.1 | 22.0 | 0 |
 | ThinkMorph | 7B | 64.4 | 22.4 | 48.8 | 1478 | 78.2 | 67.8 | 8.6 | 6.5 |
 | **ViMo** | **2B** | 76.4 | 26.4 | 54.5 | 1555 | 82.3 | 69.3 | 51.3 | 23.5 |
+
+## Acknowledgements
+
+We sincerely thank the authors and open-source communities of **Qwen3-VL**, **VFM-Tok**, and **Zebra-CoT** for their valuable work and contributions.
+
+## Copyright
+
+Please do not hesitate to share your valuable feedback—it is a key motivation that drives us to continuously improve our framework.
+
+**Note:** Our model is intended for academic research and non-commercial use only. If you are interested in a faster (smaller) or stronger model, please contact us at [xbai@hust.edu.cn](mailto:xbai@hust.edu.cn) or [ylliu@hust.edu.cn](mailto:ylliu@hust.edu.cn).
