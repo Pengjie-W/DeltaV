@@ -1,6 +1,6 @@
 <div align="center">
 
-# ViMo: Thinking with Visual Updates for Unified Multimodal Understanding and Generation
+# ViMo: Thinking with Visual Updates for Interleaved Multimodal Reasoning
 
 **An interleaved multimodal reasoning model that thinks with visual updates — modeling only the sparse visual changes across reasoning steps instead of regenerating full images.**
 
@@ -13,7 +13,11 @@
 
 ---
 
-ViMo is a unified multimodal understanding and generation model (UMM) for interleaved multimodal reasoning. It represents evolving visual states through compact **incremental visual tokens** that focus on sparse but reasoning-relevant changes across reasoning steps, reducing redundant modeling of largely unchanged visual content. Token budgets are allocated by the **TSIM Router** with temporal-similarity routing, and visual states are encoded by the **TSIM-Tok** tokenizer.
+## News
+
+2026.06.22 🚀 We release [ViMo-2B](https://huggingface.co/dle666/ViMo-2B/tree/main), an interleaved multimodal reasoning model that thinks with compact visual updates.
+
+ViMo is an interleaved multimodal reasoning model. It represents evolving visual states through compact **incremental visual tokens** that focus on sparse but reasoning-relevant changes across reasoning steps, reducing redundant modeling of largely unchanged visual content. Token budgets are allocated by the **TSIM Router** with temporal-similarity routing, and visual states are encoded by the **TSIM-Tok** tokenizer.
 
 This repository releases the **2B ViMo MLLM** together with the **TSIM-Tok tokenizer**, training scripts, inference scripts, evaluation utilities, and tiny samples.
 
