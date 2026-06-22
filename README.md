@@ -25,7 +25,7 @@ This repository releases the **2B ViMo MLLM** together with the **TSIM-Tok token
 
 ## ViMo Workflow
 
-https://github.com/user-attachments/assets/6733d07a-2406-4212-9074-433a49ce6686
+https://github.com/user-attachments/assets/abad70d5-1a9a-41e8-b1a0-f8f46ab89f08
 
 ## Repository Layout
 
