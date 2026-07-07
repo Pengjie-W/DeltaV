@@ -7,6 +7,8 @@
 [![arXiv](https://img.shields.io/badge/Arxiv-ViMo-b31b1b.svg?logo=arXiv)]()
 [![HuggingFace](https://img.shields.io/badge/HuggingFace-ViMo--2B-yellow.svg?logo=HuggingFace)](https://huggingface.co/dle666/ViMo-2B/tree/main)
 [![ModelScope](https://img.shields.io/badge/ModelScope-ViMo--2B-green.svg)](https://www.modelscope.cn/models/wpj2003/ViMo-2B)
+[![Dataset](https://img.shields.io/badge/Dataset-StructCoT-orange.svg)](https://www.modelscope.cn/datasets/wpj2003/StructCoT)
+[![Demo](https://img.shields.io/badge/Demo-blue)](http://vlrlabmonkey.xyz:10088/)
 [![Website](https://img.shields.io/badge/Website-ViMo-blue.svg)]()
 
 </div>
