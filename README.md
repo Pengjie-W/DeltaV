@@ -168,67 +168,100 @@ bash scripts/tsim_tok/eval_tsim_tok.sh
   <em>Qualitative comparison of multimodal reasoning. Full-image modeling (Base) exhibits inconsistent intermediate visual states, while ViMo maintains consistent visual representations through visual updates.</em>
 </p>
 
-We further examine how different visual modeling paradigms affect multimodal reasoning. In the chess example, full-image modeling omits the piece at position g6, altering the perceived board configuration and leading to an incorrect strategic judgment. In the Polybius-square example, reconstructing the letter P as E directly causes an incorrect encoding result.
-
-These examples show that visual inconsistency is not limited to reconstruction quality: local errors in intermediate images can alter the semantic evidence used for reasoning and corrupt the subsequent decision process. In contrast, ViMo grounds each reconstruction on previously established visual information, reducing error accumulation across reasoning steps and producing more reliable visual evidence.
-
 ## Benchmark
 
 ### External Multimodal Reasoning and Understanding Evaluation
 
-| Model | #Param | VStar | EMMA | M3CoT | MathVista | VisuLogic | MMBench | MME-P | MMVP |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| **General UMMs** | | | | | | | | | |
-| Chameleon | 7B | 32.5 | 8.6 | 16.1 | 21.7 | 4.5 | 6.0 | 530 | 4.7 |
-| Anole | 7B | 34.0 | 6.6 | 15.8 | 22.5 | 3.7 | 6.2 | 508 | 6.7 |
-| Janus-pro | 1B | 43.5 | 18.9 | 45.9 | 37.6 | 25.0 | 60.2 | 1398 | 39.3 |
-| Janus-pro | 7B | 39.3 | 21.5 | 49.1 | 42.7 | 17.5 | 66.7 | 1509 | 34.7 |
-| OmniGen2 | 7B | 41.4 | 14.7 | 50.3 | 60.2 | 0.1 | 76.1 | 1588 | 35.3 |
-| Bagel | 7B | 70.1 | 28.7 | 31.4 | 72.5 | 28.9 | 83.7 | 1665 | 69.3 |
-| EMU3.5 | 34B | - | - | - | 28.3 | 11.4 | 13.7 | 791 | 16.7 |
-| **Understanding-centric MLLMs** | | | | | | | | | |
-| Qwen3-VL | 2B | 71.7 | 22.2 | 53.0 | 61.1 | 11.5 | 77.1 | 1482 | 45.0 |
-| Qwen3-VL | 8B | 83.7 | 30.6 | 61.2 | 77.6 | 22.5 | 85.2 | 1729 | 59.3 |
-| InternVL3.5 | 2B | 68.1 | 12.7 | 51.3 | 60.8 | 26.0 | 78.2 | 1552 | 48.7 |
-| InternVL3.5 | 8B | 69.1 | 16.6 | 59.9 | 74.1 | 29.7 | 82.7 | 1688 | 57.3 |
-| **Latent Interleaved Reasoning Models** | | | | | | | | | |
-| Monet | 7B | 79.1 | 22.1 | 44.2 | 62.5 | 10.6 | 75.3 | 1636 | 48.7 |
-| Mirage | 8B | 13.6 | 13.9 | 1.08 | 29.9 | 0.4 | 12.3 | 549 | 0.0 |
-| VPT-Det | 2B | 43.5 | 20.1 | 44.4 | 41.8 | 25.6 | 73.3 | 1516 | 34.0 |
-| **Explicit Interleaved Reasoning UMMs** | | | | | | | | | |
-| Bagel-Zebra-CoT | 7B | 64.9 | 20.6 | 62.6 | 72.1 | 0 | 55.6 | 1647 | 22.0 |
-| ThinkMorph | 7B | 64.4 | 22.4 | 48.8 | 67.8 | 6.5 | 78.2 | 1478 | 8.6 |
-| **ViMo** [[Weight]](https://huggingface.co/dle666/ViMo-2B) | **2B** | 75.9 | 28.6 | 54.5 | 69.3 | 23.5 | 82.3 | 1555 | 51.3 |
+<table>
+  <thead>
+    <tr>
+      <th>Model</th>
+      <th>#Param</th>
+      <th>VStar</th>
+      <th>EMMA</th>
+      <th>M3CoT</th>
+      <th>MathVista</th>
+      <th>VisuLogic</th>
+      <th>MMBench</th>
+      <th>MME-P</th>
+      <th>MMVP</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td colspan="10" align="center"><strong><em>General UMMs</em></strong></td></tr>
+    <tr><td>Chameleon</td><td>7B</td><td>32.5</td><td>8.6</td><td>16.1</td><td>21.7</td><td>4.5</td><td>6.0</td><td>530</td><td>4.7</td></tr>
+    <tr><td>Anole</td><td>7B</td><td>34.0</td><td>6.6</td><td>15.8</td><td>22.5</td><td>3.7</td><td>6.2</td><td>508</td><td>6.7</td></tr>
+    <tr><td>Janus-pro</td><td>1B</td><td>43.5</td><td>18.9</td><td>45.9</td><td>37.6</td><td>25.0</td><td>60.2</td><td>1398</td><td>39.3</td></tr>
+    <tr><td>Janus-pro</td><td>7B</td><td>39.3</td><td>21.5</td><td>49.1</td><td>42.7</td><td>17.5</td><td>66.7</td><td>1509</td><td>34.7</td></tr>
+    <tr><td>OmniGen2</td><td>7B</td><td>41.4</td><td>14.7</td><td>50.3</td><td>60.2</td><td>0.1</td><td>76.1</td><td>1588</td><td>35.3</td></tr>
+    <tr><td>Bagel</td><td>7B</td><td>70.1</td><td>28.7</td><td>31.4</td><td>72.5</td><td>28.9</td><td>83.7</td><td>1665</td><td>69.3</td></tr>
+    <tr><td>EMU3.5</td><td>34B</td><td>-</td><td>-</td><td>-</td><td>28.3</td><td>11.4</td><td>13.7</td><td>791</td><td>16.7</td></tr>
+    <tr><td colspan="10" align="center"><strong><em>Understanding-centric MLLMs</em></strong></td></tr>
+    <tr><td>Qwen3-VL</td><td>2B</td><td>71.7</td><td>22.2</td><td>53.0</td><td>61.1</td><td>11.5</td><td>77.1</td><td>1482</td><td>45.0</td></tr>
+    <tr><td>Qwen3-VL</td><td>8B</td><td>83.7</td><td>30.6</td><td>61.2</td><td>77.6</td><td>22.5</td><td>85.2</td><td>1729</td><td>59.3</td></tr>
+    <tr><td>InternVL3.5</td><td>2B</td><td>68.1</td><td>12.7</td><td>51.3</td><td>60.8</td><td>26.0</td><td>78.2</td><td>1552</td><td>48.7</td></tr>
+    <tr><td>InternVL3.5</td><td>8B</td><td>69.1</td><td>16.6</td><td>59.9</td><td>74.1</td><td>29.7</td><td>82.7</td><td>1688</td><td>57.3</td></tr>
+    <tr><td colspan="10" align="center"><strong><em>Latent Interleaved Reasoning Models</em></strong></td></tr>
+    <tr><td>Monet</td><td>7B</td><td>79.1</td><td>22.1</td><td>44.2</td><td>62.5</td><td>10.6</td><td>75.3</td><td>1636</td><td>48.7</td></tr>
+    <tr><td>Mirage</td><td>8B</td><td>13.6</td><td>13.9</td><td>1.08</td><td>29.9</td><td>0.4</td><td>12.3</td><td>549</td><td>0.0</td></tr>
+    <tr><td>VPT-Det</td><td>2B</td><td>43.5</td><td>20.1</td><td>44.4</td><td>41.8</td><td>25.6</td><td>73.3</td><td>1516</td><td>34.0</td></tr>
+    <tr><td colspan="10" align="center"><strong><em>Explicit Interleaved Reasoning UMMs</em></strong></td></tr>
+    <tr><td>Bagel-Zebra-CoT</td><td>7B</td><td>64.9</td><td>20.6</td><td>62.6</td><td>72.1</td><td>0</td><td>55.6</td><td>1647</td><td>22.0</td></tr>
+    <tr><td>ThinkMorph</td><td>7B</td><td>64.4</td><td>22.4</td><td>48.8</td><td>67.8</td><td>6.5</td><td>78.2</td><td>1478</td><td>8.6</td></tr>
+    <tr><td><strong>ViMo</strong> <a href="https://huggingface.co/dle666/ViMo-2B">[Weight]</a></td><td><strong>2B</strong></td><td>75.9</td><td>28.6</td><td>54.5</td><td>69.3</td><td>23.5</td><td>82.3</td><td>1555</td><td>51.3</td></tr>
+  </tbody>
+</table>
 
 VStar, EMMA, M3CoT, MathVista, and VisuLogic are grouped as multimodal reasoning benchmarks, while MMBench, MME-P, and MMVP are grouped as multimodal understanding benchmarks.
 
 ### In-domain Multimodal Reasoning Evaluation
 
-| Model | #Param | Zebra 2D | Zebra 3D | Zebra Science | Zebra Strategy | Zebra Overall | Struct Strategy Planning | Struct Spatial Planning | Struct Logic | Struct Math | Struct Science | Struct Visual Search | Struct Jigsaw Restoration | Struct Overall |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| **Understanding-centric MLLMs** | | | | | | | | | | | | | | |
-| GPT-5.2 | - | 67.6 | 19.3 | 73.3 | 54.4 | 53.7 | 43.1 | 33.8 | 42.1 | 76.3 | 50.4 | 87.0 | 57.1 | 55.7 |
-| Gemini-3.1 Pro | - | 68.7 | 19.0 | 83.3 | 60.4 | 57.9 | 71.6 | 28.2 | 50.2 | 78.3 | 55.0 | 79.4 | 65.3 | 61.1 |
-| Gemini 3.0 Flash | - | 66.5 | 19.4 | 78.4 | 54.5 | 54.7 | 55.0 | 33.3 | 44.8 | 74.8 | 48.4 | 83.6 | 64.9 | 57.8 |
-| Qwen3-VL | 2B | 44.3 | 13.2 | 30.3 | 9.2 | 24.3 | 3.4 | 31.4 | 4.6 | 41.4 | 29.4 | 80.8 | 39.3 | 32.9 |
-| Qwen3-VL | 8B | 50.7 | 16.9 | **56.0** | 22.7 | 36.6 | **21.6** | 25.4 | 13.1 | **59.3** | 39.3 | 83.8 | 46.5 | 41.3 |
-| InternVL3.5 | 8B | 29.7 | 11.4 | 48.9 | 19.8 | 27.5 | 6.9 | 36.3 | 17.5 | 36.1 | 32.0 | 75.8 | 41.0 | 35.1 |
-| Qwen2.5-VL | 72B | 43.2 | 17.3 | 50.1 | 25.8 | 34.1 | 14.8 | 34.4 | 31.4 | 48.0 | 36.5 | **84.9** | 47.0 | 42.4 |
-| **General UMMs** | | | | | | | | | | | | | | |
-| Chameleon | 7B | 13.3 | 3.0 | 5.2 | 9.9 | 7.9 | 5.6 | 12.5 | 4.1 | 9.1 | 13.1 | 23.5 | 14.4 | 11.8 |
-| Anole | 7B | 10.8 | 2.8 | 4.8 | 8.5 | 6.7 | 5.4 | 0.1 | 3.8 | 8.9 | 12.8 | 16.8 | 11.4 | 9.9 |
-| Janus-pro | 7B | 31.7 | 7.7 | 11.5 | 18.0 | 17.2 | 4.3 | 24.4 | 13.4 | 16.6 | 12.0 | 74.6 | 33.9 | 25.6 |
-| OmniGen2 | 7B | 26.5 | 1.3 | 9.6 | 9.7 | 11.8 | 0.6 | 25.3 | 1.5 | 8.4 | 10.1 | 78.1 | 28.5 | 21.8 |
-| Bagel | 7B | 43.3 | 14.7 | 44.5 | 16.3 | 29.7 | 16.4 | 24.9 | 12.8 | 49.0 | 35.5 | 84.6 | 49.0 | 38.9 |
-| EMU3.5 | 34B | 10.1 | 3.6 | 8.6 | 11.8 | 8.5 | 2.8 | 29.1 | 4.6 | 19.3 | 15.6 | 21.1 | 18.8 | 15.9 |
-| **Latent Interleaved Reasoning Models** | | | | | | | | | | | | | | |
-| Monet | 7B | 37.5 | 12.0 | 15.1 | 23.0 | 21.9 | 2.3 | 19.9 | 21.9 | 33.8 | 25.8 | 59.6 | 33.8 | 28.1 |
-| Mirage | 8B | 2.2 | 2.5 | 10.7 | 12.4 | 7.0 | 0.9 | 14.3 | 12.4 | 35.8 | 22.5 | 11.0 | 30.4 | 18.2 |
-| VPT-Det | 2B | 32.3 | 3.5 | 6.5 | 18.7 | 15.3 | 7.5 | 26.5 | 8.8 | 14.5 | 15.1 | 73.1 | 35.9 | 25.9 |
-| **Explicit Interleaved Reasoning UMMs** | | | | | | | | | | | | | | |
-| Bagel-Zebra-CoT | 7B | - | - | - | - | - | 7.0 | 24.6 | 22.8 | 33.3 | 27.3 | 81.0 | 41.9 | 34.0 |
-| ThinkMorph | 7B | 43.0 | 11.6 | 31.4 | 22.9 | 27.2 | 21.4 | 19.5 | 26.4 | 43.4 | 26.0 | 84.1 | 49.9 | 38.7 |
-| **ViMo** [[Weight]](https://huggingface.co/dle666/ViMo-2B) | **2B** | **78.9** | **20.0** | 41.1 | **38.3** | **44.6** | 16.4 | **53.0** | **66.0** | 30.1 | **45.6** | 84.3 | **62.6** | **51.1** |
+<table>
+  <thead>
+    <tr>
+      <th>Model</th>
+      <th>#Param</th>
+      <th>Zebra 2D</th>
+      <th>Zebra 3D</th>
+      <th>Zebra Science</th>
+      <th>Zebra Strategy</th>
+      <th>Zebra Overall</th>
+      <th>Struct Strategy Planning</th>
+      <th>Struct Spatial Planning</th>
+      <th>Struct Logic</th>
+      <th>Struct Math</th>
+      <th>Struct Science</th>
+      <th>Struct Visual Search</th>
+      <th>Struct Jigsaw Restoration</th>
+      <th>Struct Overall</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td colspan="15" align="center"><strong><em>Understanding-centric MLLMs</em></strong></td></tr>
+    <tr><td>GPT-5.2</td><td>-</td><td>67.6</td><td>19.3</td><td>73.3</td><td>54.4</td><td>53.7</td><td>43.1</td><td>33.8</td><td>42.1</td><td>76.3</td><td>50.4</td><td>87.0</td><td>57.1</td><td>55.7</td></tr>
+    <tr><td>Gemini-3.1 Pro</td><td>-</td><td>68.7</td><td>19.0</td><td>83.3</td><td>60.4</td><td>57.9</td><td>71.6</td><td>28.2</td><td>50.2</td><td>78.3</td><td>55.0</td><td>79.4</td><td>65.3</td><td>61.1</td></tr>
+    <tr><td>Gemini 3.0 Flash</td><td>-</td><td>66.5</td><td>19.4</td><td>78.4</td><td>54.5</td><td>54.7</td><td>55.0</td><td>33.3</td><td>44.8</td><td>74.8</td><td>48.4</td><td>83.6</td><td>64.9</td><td>57.8</td></tr>
+    <tr><td>Qwen3-VL</td><td>2B</td><td>44.3</td><td>13.2</td><td>30.3</td><td>9.2</td><td>24.3</td><td>3.4</td><td>31.4</td><td>4.6</td><td>41.4</td><td>29.4</td><td>80.8</td><td>39.3</td><td>32.9</td></tr>
+    <tr><td>Qwen3-VL</td><td>8B</td><td>50.7</td><td>16.9</td><td><strong>56.0</strong></td><td>22.7</td><td>36.6</td><td><strong>21.6</strong></td><td>25.4</td><td>13.1</td><td><strong>59.3</strong></td><td>39.3</td><td>83.8</td><td>46.5</td><td>41.3</td></tr>
+    <tr><td>InternVL3.5</td><td>8B</td><td>29.7</td><td>11.4</td><td>48.9</td><td>19.8</td><td>27.5</td><td>6.9</td><td>36.3</td><td>17.5</td><td>36.1</td><td>32.0</td><td>75.8</td><td>41.0</td><td>35.1</td></tr>
+    <tr><td>Qwen2.5-VL</td><td>72B</td><td>43.2</td><td>17.3</td><td>50.1</td><td>25.8</td><td>34.1</td><td>14.8</td><td>34.4</td><td>31.4</td><td>48.0</td><td>36.5</td><td><strong>84.9</strong></td><td>47.0</td><td>42.4</td></tr>
+    <tr><td colspan="15" align="center"><strong><em>General UMMs</em></strong></td></tr>
+    <tr><td>Chameleon</td><td>7B</td><td>13.3</td><td>3.0</td><td>5.2</td><td>9.9</td><td>7.9</td><td>5.6</td><td>12.5</td><td>4.1</td><td>9.1</td><td>13.1</td><td>23.5</td><td>14.4</td><td>11.8</td></tr>
+    <tr><td>Anole</td><td>7B</td><td>10.8</td><td>2.8</td><td>4.8</td><td>8.5</td><td>6.7</td><td>5.4</td><td>0.1</td><td>3.8</td><td>8.9</td><td>12.8</td><td>16.8</td><td>11.4</td><td>9.9</td></tr>
+    <tr><td>Janus-pro</td><td>7B</td><td>31.7</td><td>7.7</td><td>11.5</td><td>18.0</td><td>17.2</td><td>4.3</td><td>24.4</td><td>13.4</td><td>16.6</td><td>12.0</td><td>74.6</td><td>33.9</td><td>25.6</td></tr>
+    <tr><td>OmniGen2</td><td>7B</td><td>26.5</td><td>1.3</td><td>9.6</td><td>9.7</td><td>11.8</td><td>0.6</td><td>25.3</td><td>1.5</td><td>8.4</td><td>10.1</td><td>78.1</td><td>28.5</td><td>21.8</td></tr>
+    <tr><td>Bagel</td><td>7B</td><td>43.3</td><td>14.7</td><td>44.5</td><td>16.3</td><td>29.7</td><td>16.4</td><td>24.9</td><td>12.8</td><td>49.0</td><td>35.5</td><td>84.6</td><td>49.0</td><td>38.9</td></tr>
+    <tr><td>EMU3.5</td><td>34B</td><td>10.1</td><td>3.6</td><td>8.6</td><td>11.8</td><td>8.5</td><td>2.8</td><td>29.1</td><td>4.6</td><td>19.3</td><td>15.6</td><td>21.1</td><td>18.8</td><td>15.9</td></tr>
+    <tr><td colspan="15" align="center"><strong><em>Latent Interleaved Reasoning Models</em></strong></td></tr>
+    <tr><td>Monet</td><td>7B</td><td>37.5</td><td>12.0</td><td>15.1</td><td>23.0</td><td>21.9</td><td>2.3</td><td>19.9</td><td>21.9</td><td>33.8</td><td>25.8</td><td>59.6</td><td>33.8</td><td>28.1</td></tr>
+    <tr><td>Mirage</td><td>8B</td><td>2.2</td><td>2.5</td><td>10.7</td><td>12.4</td><td>7.0</td><td>0.9</td><td>14.3</td><td>12.4</td><td>35.8</td><td>22.5</td><td>11.0</td><td>30.4</td><td>18.2</td></tr>
+    <tr><td>VPT-Det</td><td>2B</td><td>32.3</td><td>3.5</td><td>6.5</td><td>18.7</td><td>15.3</td><td>7.5</td><td>26.5</td><td>8.8</td><td>14.5</td><td>15.1</td><td>73.1</td><td>35.9</td><td>25.9</td></tr>
+    <tr><td colspan="15" align="center"><strong><em>Explicit Interleaved Reasoning UMMs</em></strong></td></tr>
+    <tr><td>Bagel-Zebra-CoT</td><td>7B</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>7.0</td><td>24.6</td><td>22.8</td><td>33.3</td><td>27.3</td><td>81.0</td><td>41.9</td><td>34.0</td></tr>
+    <tr><td>ThinkMorph</td><td>7B</td><td>43.0</td><td>11.6</td><td>31.4</td><td>22.9</td><td>27.2</td><td>21.4</td><td>19.5</td><td>26.4</td><td>43.4</td><td>26.0</td><td>84.1</td><td>49.9</td><td>38.7</td></tr>
+    <tr><td><strong>ViMo</strong> <a href="https://huggingface.co/dle666/ViMo-2B">[Weight]</a></td><td><strong>2B</strong></td><td><strong>78.9</strong></td><td><strong>20.0</strong></td><td>41.1</td><td><strong>38.3</strong></td><td><strong>44.6</strong></td><td>16.4</td><td><strong>53.0</strong></td><td><strong>66.0</strong></td><td>30.1</td><td><strong>45.6</strong></td><td>84.3</td><td><strong>62.6</strong></td><td><strong>51.1</strong></td></tr>
+  </tbody>
+</table>
 
 The StructCoT test set excludes all samples originating from the Zebra-CoT dataset.
 
