@@ -183,7 +183,7 @@ bash scripts/tsim_tok/eval_tsim_tok.sh
       <th>MathVista</th>
       <th>VisuLogic</th>
       <th>MMBench</th>
-      <th>MME-P</th>
+      <th>MME&#8209;P</th>
       <th>MMVP</th>
     </tr>
   </thead>
@@ -212,7 +212,7 @@ bash scripts/tsim_tok/eval_tsim_tok.sh
   </tbody>
 </table>
 
-VStar, EMMA, M3CoT, MathVista, and VisuLogic are grouped as multimodal reasoning benchmarks, while MMBench, MME-P, and MMVP are grouped as multimodal understanding benchmarks.
+VStar, EMMA, M3CoT, MathVista, and VisuLogic are grouped as multimodal reasoning benchmarks, while MMBench, MME&#8209;P, and MMVP are grouped as multimodal understanding benchmarks.
 
 ### In-domain Multimodal Reasoning Evaluation
 
