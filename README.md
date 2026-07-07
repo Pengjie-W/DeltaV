@@ -219,21 +219,25 @@ VStar, EMMA, M3CoT, MathVista, and VisuLogic are grouped as multimodal reasoning
 <table>
   <thead>
     <tr>
-      <th>Model</th>
-      <th>#Param</th>
-      <th>Zebra 2D</th>
-      <th>Zebra 3D</th>
-      <th>Zebra Science</th>
-      <th>Zebra Strategy</th>
-      <th>Zebra Overall</th>
-      <th>Struct Strategy Planning</th>
-      <th>Struct Spatial Planning</th>
-      <th>Struct Logic</th>
-      <th>Struct Math</th>
-      <th>Struct Science</th>
-      <th>Struct Visual Search</th>
-      <th>Struct Jigsaw Restoration</th>
-      <th>Struct Overall</th>
+      <th rowspan="2" align="center">Model</th>
+      <th rowspan="2" align="center">#Param</th>
+      <th colspan="5" align="center">Zebra-CoT</th>
+      <th colspan="8" align="center">StructCoT</th>
+    </tr>
+    <tr>
+      <th>2D</th>
+      <th>3D</th>
+      <th>Science</th>
+      <th>Strategy</th>
+      <th>Overall</th>
+      <th>Strategy Planning</th>
+      <th>Spatial Planning</th>
+      <th>Logic</th>
+      <th>Math</th>
+      <th>Science</th>
+      <th>Visual Search</th>
+      <th>Jigsaw Restoration</th>
+      <th>Overall</th>
     </tr>
   </thead>
   <tbody>
