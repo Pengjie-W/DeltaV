@@ -5,8 +5,8 @@
 **A unified large multimodal model that thinks with visual state updates—modeling only the sparse, reasoning-critical changes across reasoning steps instead of regenerating full images.**
 
 [![arXiv](https://img.shields.io/badge/Arxiv-DeltaV-b31b1b.svg?logo=arXiv)]()
-[![HuggingFace](https://img.shields.io/badge/HuggingFace-DeltaV--2B-yellow.svg?logo=HuggingFace)](https://huggingface.co/dle666/ViMo-2B/tree/main)
-[![ModelScope](https://img.shields.io/badge/ModelScope-DeltaV--2B-green.svg)](https://www.modelscope.cn/models/wpj2003/ViMo-2B)
+[![HuggingFace](https://img.shields.io/badge/HuggingFace-DeltaV--2B-yellow.svg?logo=HuggingFace)](https://huggingface.co/wpj20000/DeltaV-2B/tree/main)
+[![ModelScope](https://img.shields.io/badge/ModelScope-DeltaV--2B-green.svg)](https://www.modelscope.cn/models/wpj2003/DeltaV-2B)
 [![Dataset](https://img.shields.io/badge/Dataset-StructCoT-orange.svg)](https://www.modelscope.cn/datasets/wpj2003/StructCoT)
 [![Website](https://img.shields.io/badge/Website-DeltaV-blue.svg)]()
 [![Demo](https://img.shields.io/badge/Demo-Live-purple.svg)](http://vlrlabmonkey.xyz:10088/)
@@ -17,13 +17,22 @@
 
 ## News
 
-* ```2026.07.09 ``` 🚀 We release [DeltaV-2B](https://huggingface.co/dle666/ViMo-2B/tree/main), a unified large multimodal model for interleaved multimodal reasoning.
+* ```2026.07.09 ``` 🚀 We release [DeltaV-2B](https://huggingface.co/wpj20000/DeltaV-2B/tree/main), a unified large multimodal model for interleaved multimodal reasoning.
 
 ## Introduction
 
 DeltaV is a unified large multimodal model (ULMM) designed to think with visual state updates during interleaved multimodal reasoning. Conditioned on historical visual states, it incrementally predicts compact **visual update tokens** that capture sparse but reasoning-critical changes across reasoning steps, avoiding repeated modeling of unchanged content. Token budgets are dynamically allocated by the **TSIM Router** according to temporal visual variation, and visual states are encoded by the **TSIM-Tok** tokenizer.
 
-This repository releases the **DeltaV-2B ULMM** together with the **TSIM-Tok tokenizer**, training scripts, inference scripts, evaluation utilities, and tiny samples.
+This repository releases the **DeltaV-2B ULMM** together with the **TSIM-Tok tokenizer**, inference scripts, and tiny samples.
+
+## TODO / Roadmap
+
+This release focuses on **inference** with the pretrained DeltaV-2B checkpoint. The following components are not included yet and will be released in a future update:
+
+- [ ] **StructCoT dataset** — the full StructCoT dataset and training data. (A small inference example, `data/struct_infer_sample.json`, is included so inference is runnable; the benchmark numbers in the tables below are kept as a record.)
+- [ ] **Zebra-CoT / StructCoT evaluation (scoring) tools** — the LLM-API-based scorers and their guide, pending the public StructCoT release.
+- [ ] **DeltaV training** — the two-stage DeltaV ULMM training scripts and configs.
+- [ ] **TSIM-Tok training and testing** — the TSIM-Tok tokenizer training and reconstruction-evaluation code (the tokenizer *model* is retained as DeltaV's visual backbone).
 
 ## DeltaV Workflow
 
@@ -32,15 +41,14 @@ https://github.com/user-attachments/assets/724b2ff7-279a-4139-a9a0-de734014431d
 ## Repository Layout
 
 ```text
-vimo/        DeltaV model code: modeling, processing, configuration, backbone
+deltav/        DeltaV model code: modeling, processing, configuration, backbone
   tsim_tok/  TSIM-Tok visual tokenizer and TSIM Router
-train/       Training entry points
-inference/   Inference and TSIM-Tok evaluation
-scripts/     Ready-to-run scripts for DeltaV, TSIM-Tok, and data utilities
+inference/   Inference
+scripts/     Ready-to-run scripts for DeltaV inference and data utilities
 configs/     Model and acceleration configs
 data/        Tiny samples
 docs/        Extended tutorials and README media assets
-tools/       Data processing, evaluation, and inference post-processing
+tools/       Data processing and inference post-processing
 ```
 
 ## Installation
@@ -48,7 +56,7 @@ tools/       Data processing, evaluation, and inference post-processing
 See [INSTALL.md](INSTALL.md) for the full setup guide. Quick version:
 
 ```bash
-conda create -n vimo python=3.10 -y && conda activate vimo
+conda create -n deltav python=3.10 -y && conda activate deltav
 pip install torch torchvision --index-url https://download.pytorch.org/whl/cu121
 pip install -r requirements.txt
 ```
@@ -60,7 +68,7 @@ Download our models from Huggingface.
 ```bash
 pip install huggingface_hub
 
-python tools/download_model.py -n ViMo-2B      # DeltaV-2B (legacy CLI identifier), or TSIM-Tok
+python tools/download_model.py -n DeltaV-2B      # DeltaV-2B (legacy CLI identifier)
 ```
 
 You can also download our models from ModelScope.
@@ -68,95 +76,77 @@ You can also download our models from ModelScope.
 ```bash
 pip install modelscope
 
-python tools/download_model.py -t modelscope -n ViMo-2B   # DeltaV-2B (legacy CLI identifier), or TSIM-Tok
+python tools/download_model.py -t modelscope -n DeltaV-2B   # DeltaV-2B (legacy CLI identifier)
 ```
 
-The released checkpoints are placed under `weights/`:
+The released checkpoint is placed under `weights/`:
 
 ```text
 weights/
-  vimo_2b/
-  tsim_tok/
-    tsim_tok.pt
+  deltav_2b/
 ```
 
-## Training and Inference
+## Inference
 
-### 1. DeltaV ULMM
-
-Training has two stages on top of a frozen TSIM-Tok. The basic recipe below is the simplest path for reproducing DeltaV ULMM training.
-
-```bash
-# Stage 1: alignment. Train the generation MLP and visual head.
-# GEN_WEIGHTS_PATH defaults to weights/tsim_tok/tsim_tok.pt.
-BASE_MODEL_PATH=/path/to/Qwen3-VL-2B-Instruct \
-DATA_PATH=data/vimo_sft_sample.json \
-bash scripts/vimo/train_vimo_stage1.sh
-
-# Stage 2: SFT. Update all params except TSIM-Tok and the understanding MLP.
-STAGE1_MODEL_PATH=./Checkpoints_MLLM/vimo_stage1/.../tfmr \
-DATA_PATH=data/vimo_sft_sample.json \
-bash scripts/vimo/train_vimo_stage2.sh
-```
+> **DeltaV training is not included in this release.** The two-stage DeltaV ULMM training recipe (on top of a frozen TSIM-Tok) will be added back later — see [TODO / Roadmap](#todo--roadmap).
 
 ### DeltaV Inference
 
 ```bash
 # Pure inference for evaluation. Outputs text-only .json, then merge + extract answers.
-# Zebra-CoT and StructCoT share one entrypoint; switch with JSON_PATH.
-MODEL_PATH=weights/vimo_2b \
-JSON_PATH=data/zebra_test_sample.json \
-bash scripts/vimo/infer_vimo.sh
+MODEL_PATH=weights/deltav_2b \
+JSON_PATH=data/zebra_infer_sample.json \
+bash scripts/deltav/infer_deltav.sh
 ```
 
 To also decode and save generated images, set `VIS_ARGS`. This streams results to `.jsonl` and skips merge/extract steps. Add `--concat_gt_images` to dump a ground-truth montage alongside each prediction.
 
 ```bash
-MODEL_PATH=weights/vimo_2b \
-JSON_PATH=data/zebra_test_sample.json \
+MODEL_PATH=weights/deltav_2b \
+JSON_PATH=data/zebra_infer_sample.json \
 VIS_ARGS="--decode_and_save_image --concat_gt_images" \
-bash scripts/vimo/infer_vimo.sh
+bash scripts/deltav/infer_deltav.sh
 ```
 
-If samples carry precomputed `num_tokens`, the script uses them via `--use_json_num_tokens`. Otherwise set `TOKEN_ARGS="--use_tsim_router ..."` and the TSIM Router allocates incremental token budgets from temporal similarity. See [docs/data_and_token.md](docs/data_and_token.md).
+### Input format & token budgets
 
-### 2. TSIM-Tok Visual Tokenizer
+Each inference sample carries the prompt, its input/output image paths, and (optionally) the
+per-image incremental token budget:
 
-TSIM-Tok training has two stages: single-image training, then multi-image training with variable token budgets. The visual backbone stays frozen throughout.
-
-`BASE_MODEL_PATH` points at the Qwen3-VL-2B base directory. Its `config.json` supplies the visual `vision_config`, and its `model.safetensors` initializes the frozen visual backbone.
-
-```bash
-# Stage 1: single image.
-BASE_MODEL_PATH=/path/to/Qwen3-VL-2B-Instruct \
-DATA_PATH=data/tsim_tok_stage1_sample.json \
-bash scripts/tsim_tok/train_tsim_tok_stage1.sh
-
-# Stage 2: multi-image, variable-token-budget training.
-BASE_MODEL_PATH=/path/to/Qwen3-VL-2B-Instruct \
-VQ_CKPT=checkpoints/tsim_tok_stage1/model_dump/<ckpt>.pt \
-DATA_PATHS=data/tsim_tok_stage2_sample.json \
-bash scripts/tsim_tok/train_tsim_tok_stage2.sh
+```json
+{
+  "config": "Visual Logic & Strategic Games - Tetris",
+  "input_prompt": "Fill the entire grid EXCEPT ...",
+  "input_image":  ["/abs/path/problem.jpg"],
+  "output_image": ["/abs/path/reasoning_01.jpg", "..."],
+  "num_tokens": [144, 100, 81, ...]
+}
 ```
 
-### TSIM-Tok Evaluation
+`num_tokens` is the per-image incremental token budget: the first image always uses the base
+budget `n_base`; each subsequent image uses a routed budget. There are two ways to supply it:
 
-Reconstruction SSIM under per-sample token budgets:
+- **Precomputed (default)** — if samples already carry `num_tokens`, pass `--use_json_num_tokens`
+  (this is the default `TOKEN_ARGS` in `infer_deltav.sh`).
+- **TSIM Router (on the fly)** — otherwise set
+  `TOKEN_ARGS="--use_tsim_router --visual_extractor_repo <dinov2> --visual_extractor_ckpt <dinov2.pth>"`.
+  The router (`deltav/tsim_tok/tsim_router.py`) measures temporal visual change with a frozen
+  **DINOv2 ViT-B/14** and maps it to budgets via `tools/data_processing/tsim_intervals.json`.
+  DINOv2 is fetched automatically by `torch.hub` on first use; to run offline, clone it and pass
+  the local paths (see [INSTALL.md](INSTALL.md)).
 
-```bash
-BASE_MODEL_PATH=/path/to/Qwen3-VL-2B-Instruct \
-VQ_CKPT=weights/tsim_tok/tsim_tok.pt \
-VAL_DATA=data/tsim_tok_stage2_sample.json \
-bash scripts/tsim_tok/eval_tsim_tok.sh
-```
+> **TSIM-Tok training and reconstruction evaluation are not included in this release.** The tokenizer *model* is retained as DeltaV's visual backbone, but its training/testing code will be added back later — see [TODO / Roadmap](#todo--roadmap).
 
 ## Documentation
 
-- [docs/data_and_token.md](docs/data_and_token.md): dataset format and how the TSIM Router turns image similarity into token budgets.
-- [docs/eval_zebra_struct.md](docs/eval_zebra_struct.md): Zebra-CoT and StructCoT scoring.
-- [docs/advanced_zero3_gc.md](docs/advanced_zero3_gc.md): ZeRO-3 and gradient checkpointing.
-- [docs/packing.md](docs/packing.md): sequence packing, length computation, and packing training.
 - [docs/eval_vlmevalkit.md](docs/eval_vlmevalkit.md): understanding benchmarks via VLMEvalKit. This guide is still being refined.
+
+The following guides will be published alongside the training / evaluation code (see [TODO / Roadmap](#todo--roadmap)):
+
+- [ ] `docs/data_and_token.md`: dataset format and the offline TSIM Router pipeline that turns image similarity into per-image token budgets.
+- [ ] `docs/eval_zebra_struct.md`: Zebra-CoT and StructCoT scoring.
+- [ ] `docs/advanced_zero3_gc.md`: ZeRO-3 and gradient checkpointing.
+- [ ] `docs/packing.md`: sequence packing, length computation, and packing training.
 
 ## Qualitative Examples
 
@@ -208,7 +198,7 @@ bash scripts/tsim_tok/eval_tsim_tok.sh
     <tr><td colspan="10" align="center"><strong><em>Explicit Interleaved Reasoning ULMMs</em></strong></td></tr>
     <tr><td>Bagel-Zebra-CoT</td><td>7B</td><td>64.9</td><td>20.6</td><td>62.6</td><td>72.1</td><td>0</td><td>55.6</td><td>1647</td><td>22.0</td></tr>
     <tr><td>ThinkMorph</td><td>7B</td><td>64.4</td><td>22.4</td><td>48.8</td><td>67.8</td><td>6.5</td><td>78.2</td><td>1478</td><td>8.6</td></tr>
-    <tr><td><strong>DeltaV</strong> <a href="https://huggingface.co/dle666/ViMo-2B">[Weight]</a></td><td><strong>2B</strong></td><td>75.9</td><td>28.6</td><td>54.5</td><td>69.3</td><td>23.5</td><td>82.3</td><td>1555</td><td>51.3</td></tr>
+    <tr><td><strong>DeltaV</strong> <a href="https://huggingface.co/wpj20000/DeltaV-2B">[Weight]</a></td><td><strong>2B</strong></td><td>75.9</td><td>28.6</td><td>54.5</td><td>69.3</td><td>23.5</td><td>82.3</td><td>1555</td><td>51.3</td></tr>
   </tbody>
 </table>
 
@@ -263,7 +253,7 @@ VStar, EMMA, M3CoT, MathVista, and VisuLogic are grouped as multimodal reasoning
     <tr><td colspan="15" align="center"><strong><em>Explicit Interleaved Reasoning ULMMs</em></strong></td></tr>
     <tr><td>Bagel-Zebra-CoT</td><td>7B</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>7.0</td><td>24.6</td><td>22.8</td><td>33.3</td><td>27.3</td><td>81.0</td><td>41.9</td><td>34.0</td></tr>
     <tr><td>ThinkMorph</td><td>7B</td><td>43.0</td><td>11.6</td><td>31.4</td><td>22.9</td><td>27.2</td><td>21.4</td><td>19.5</td><td>26.4</td><td>43.4</td><td>26.0</td><td>84.1</td><td>49.9</td><td>38.7</td></tr>
-    <tr><td><strong>DeltaV</strong> <a href="https://huggingface.co/dle666/ViMo-2B">[Weight]</a></td><td><strong>2B</strong></td><td><strong>78.9</strong></td><td><strong>20.0</strong></td><td>41.1</td><td><strong>38.3</strong></td><td><strong>44.6</strong></td><td>16.4</td><td><strong>53.0</strong></td><td><strong>66.0</strong></td><td>30.1</td><td><strong>45.6</strong></td><td>84.3</td><td><strong>62.6</strong></td><td><strong>51.1</strong></td></tr>
+    <tr><td><strong>DeltaV</strong> <a href="https://huggingface.co/wpj20000/DeltaV-2B">[Weight]</a></td><td><strong>2B</strong></td><td><strong>78.9</strong></td><td><strong>20.0</strong></td><td>41.1</td><td><strong>38.3</strong></td><td><strong>44.6</strong></td><td>16.4</td><td><strong>53.0</strong></td><td><strong>66.0</strong></td><td>30.1</td><td><strong>45.6</strong></td><td>84.3</td><td><strong>62.6</strong></td><td><strong>51.1</strong></td></tr>
   </tbody>
 </table>
 

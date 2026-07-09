@@ -1,22 +1,18 @@
 #!/usr/bin/env python3
-"""Download ViMo checkpoints from Hugging Face or ModelScope.
+"""Download DeltaV checkpoints from Hugging Face or ModelScope.
 
 Examples
 --------
 # From Hugging Face (default)
-python tools/download_model.py -n ViMo-2B
-python tools/download_model.py -n TSIM-Tok
+python tools/download_model.py -n DeltaV-2B
 
 # From ModelScope
-python tools/download_model.py -t modelscope -n ViMo-2B
-python tools/download_model.py -t modelscope -n TSIM-Tok
+python tools/download_model.py -t modelscope -n DeltaV-2B
 
-By default all checkpoints are placed under ``weights/``:
+By default the checkpoint is placed under ``weights/``:
 
     weights/
-      vimo_2b/
-      tsim_tok/
-        tsim_tok.pt
+      deltav_2b/
 """
 
 import argparse
@@ -25,18 +21,11 @@ import shutil
 
 # Model name -> {source: repo_id}, and where it lands under the weights dir.
 MODELS = {
-    "ViMo-2B": {
-        "huggingface": "dle666/ViMo-2B",
-        "modelscope": "wpj2003/ViMo-2B",
-        "target_subdir": "vimo_2b",
+    "DeltaV-2B": {
+        "huggingface": "wpj20000/DeltaV-2B",
+        "modelscope": "wpj2003/DeltaV-2B",
+        "target_subdir": "deltav_2b",
         "kind": "repo",          # download the whole repo
-    },
-    "TSIM-Tok": {
-        "huggingface": "wpj20000/TSIM-Tok",
-        "modelscope": "wpj2003/TSIM-Tok",
-        "target_subdir": "tsim_tok",
-        "kind": "file",          # only need the .pt checkpoint
-        "filename": "tsim_tok.pt",
     },
 }
 
@@ -74,10 +63,10 @@ def download_modelscope(repo_id, local_dir, kind, filename=None):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Download ViMo checkpoints.")
+    parser = argparse.ArgumentParser(description="Download DeltaV checkpoints.")
     parser.add_argument(
         "-n", "--name", required=True, choices=list(MODELS.keys()),
-        help="Which checkpoint to download: ViMo-2B or TSIM-Tok.",
+        help="Which checkpoint to download: DeltaV-2B.",
     )
     parser.add_argument(
         "-t", "--type", default="huggingface",

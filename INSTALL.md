@@ -2,8 +2,8 @@
 
 ```bash
 # 1. Create an environment (Python 3.10 recommended)
-conda create -n vimo python=3.10 -y
-conda activate vimo
+conda create -n deltav python=3.10 -y
+conda activate deltav
 
 # 2. Install PyTorch matching your CUDA, then the rest
 # pip install torch torchvision --index-url https://download.pytorch.org/whl/cu121
@@ -23,7 +23,7 @@ TSIM-Tok's encoder uses multi-scale deformable attention. A CUDA op lives under
 `tsim_tok/modules/ops`. Building it is optional (a pure-PyTorch path is used otherwise):
 
 ```bash
-cd vimo/tsim_tok/modules/ops
+cd deltav/tsim_tok/modules/ops
 bash make.sh
 cd -
 ```
@@ -35,12 +35,11 @@ pip install flash-attn --no-build-isolation
 
 ## Weights
 
-Place (or symlink) the released checkpoints under `weights/`:
+Place (or symlink) the released checkpoint under `weights/`:
 
 ```
 weights/
-  vimo_2b/                 # ViMo 2B (HF-style dir: config.json + *.safetensors + tokenizer)
-  tsim_tok/tsim_tok.pt     # frozen TSIM-Tok visual tokenizer
+  deltav_2b/                 # DeltaV 2B (HF-style dir: config.json + *.safetensors + tokenizer)
 ```
 
 The DINOv2 ViT-B/14 used by the TSIM Router is **not** in this list — it is downloaded

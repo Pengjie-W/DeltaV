@@ -1,21 +1,21 @@
-"""Checkpoint compatibility checker / remapper for the renamed ViMo model.
+"""Checkpoint compatibility checker / remapper for the renamed DeltaV model.
 
 Renaming Python identifiers (class names, methods, local variables) does NOT change
 ``state_dict`` keys — keys derive from ``nn.Module`` *attribute* names, which were kept
-unchanged on purpose. So existing checkpoints load into the renamed ``ViMoModel`` as-is.
+unchanged on purpose. So existing checkpoints load into the renamed ``DeltaVModel`` as-is.
 
-This script (a) verifies a checkpoint loads with ``strict=True`` into ``ViMoModel``, and
+This script (a) verifies a checkpoint loads with ``strict=True`` into ``DeltaVModel``, and
 (b) optionally writes a remapped copy if a future rename ever touches submodule attribute
 names. The original checkpoint is never modified — output goes to a new path.
 
 Usage:
     # validate that the released checkpoint loads into the renamed model
     python tools/checkpoint/remap_state_dict.py --check \
-        --ckpt weights/vimo_2b --extra_cfg configs/vimo_cfg.json
+        --ckpt weights/deltav_2b --extra_cfg configs/tsim_tok_cfg.json
 
     # write a remapped copy (identity mapping by default)
     python tools/checkpoint/remap_state_dict.py \
-        --ckpt /path/to/old.pt --out weights/vimo_2b_remapped.pt --extra_cfg configs/vimo_cfg.json
+        --ckpt /path/to/old.pt --out weights/deltav_2b_remapped.pt --extra_cfg configs/tsim_tok_cfg.json
 """
 import argparse
 import os
@@ -45,21 +45,21 @@ def remap_keys(state_dict):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--ckpt", required=True, help="checkpoint dir (HF) or .pt/.safetensors file")
-    ap.add_argument("--extra_cfg", default="configs/vimo_cfg.json")
+    ap.add_argument("--extra_cfg", default="configs/tsim_tok_cfg.json")
     ap.add_argument("--out", default=None, help="output path for a remapped copy")
-    ap.add_argument("--check", action="store_true", help="instantiate ViMoModel and strict-load")
+    ap.add_argument("--check", action="store_true", help="instantiate DeltaVModel and strict-load")
     args = ap.parse_args()
 
     import torch
-    from vimo.modeling_vimo import ViMoModel, TSIMTokExtraCfg
-    from vimo.configuration_vimo import ViMoConfig
+    from deltav.modeling_deltav import DeltaVModel, TSIMTokExtraCfg
+    from deltav.configuration_deltav import DeltaVConfig
 
     if os.path.isdir(args.ckpt):
         # HF-style checkpoint dir
-        config = ViMoConfig.from_pretrained(args.ckpt)
+        config = DeltaVConfig.from_pretrained(args.ckpt)
         extra_cfg = TSIMTokExtraCfg.load(args.extra_cfg)
-        model = ViMoModel.from_pretrained(args.ckpt, config=config, extra_cfg=extra_cfg)
-        print(f"[OK] ViMoModel.from_pretrained loaded '{args.ckpt}' (strict).")
+        model = DeltaVModel.from_pretrained(args.ckpt, config=config, extra_cfg=extra_cfg)
+        print(f"[OK] DeltaVModel.from_pretrained loaded '{args.ckpt}' (strict).")
         return
 
     state = torch.load(args.ckpt, map_location="cpu")
@@ -68,9 +68,9 @@ def main():
     print(f"[remap] {n} keys rewritten ({'identity' if not KEY_RENAMES else 'custom mapping'}).")
 
     if args.check:
-        config = ViMoConfig.from_pretrained(os.path.dirname(args.ckpt) or ".")
+        config = DeltaVConfig.from_pretrained(os.path.dirname(args.ckpt) or ".")
         extra_cfg = TSIMTokExtraCfg.load(args.extra_cfg)
-        model = ViMoModel(config=config, extra_cfg=extra_cfg)
+        model = DeltaVModel(config=config, extra_cfg=extra_cfg)
         missing, unexpected = model.load_state_dict(new_state, strict=False)
         print(f"[check] missing={len(missing)} unexpected={len(unexpected)}")
         if missing or unexpected:
