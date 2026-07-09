@@ -17,7 +17,7 @@
 
 ## News
 
-* ```2026.06.22 ``` 🚀 We release [DeltaV-2B](https://huggingface.co/dle666/ViMo-2B/tree/main), a unified large multimodal model for interleaved multimodal reasoning.
+* ```2026.07.09 ``` 🚀 We release [DeltaV-2B](https://huggingface.co/dle666/ViMo-2B/tree/main), a unified large multimodal model for interleaved multimodal reasoning.
 
 ## Introduction
 
@@ -27,7 +27,7 @@ This repository releases the **DeltaV-2B ULMM** together with the **TSIM-Tok tok
 
 ## DeltaV Workflow
 
-https://github.com/user-attachments/assets/abad70d5-1a9a-41e8-b1a0-f8f46ab89f08
+https://github.com/user-attachments/assets/724b2ff7-279a-4139-a9a0-de734014431d
 
 ## Repository Layout
 
