@@ -33,7 +33,7 @@ https://github.com/user-attachments/assets/724b2ff7-279a-4139-a9a0-de734014431d
 
 | Model | Description | Hugging Face | ModelScope |
 | --- | --- | --- | --- |
-| DeltaV-2B | ULMM with visual state updates. | [Link](https://huggingface.co/wpj20000/DeltaV-2B/tree/main) | [Link](https://www.modelscope.cn/models/wpj2003/DeltaV-2B) |
+| DeltaV-2B | Visual-state-update ULMM. | [Link](https://huggingface.co/wpj20000/DeltaV-2B/tree/main) | [Link](https://www.modelscope.cn/models/wpj2003/DeltaV-2B) |
 
 ## TODO / Roadmap
 
