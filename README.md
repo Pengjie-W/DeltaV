@@ -31,11 +31,42 @@ https://github.com/user-attachments/assets/724b2ff7-279a-4139-a9a0-de734014431d
 
 ## 🏗️ Model Zoo
 
-**External Multimodal Reasoning and Understanding Evaluation**
+<p align="center"><strong>External Multimodal Reasoning and Understanding Evaluation</strong></p>
 
-| **Model** | **HuggingFace** | **ModelScope** | **#Param** | **VStar** | **EMMA** | **M3CoT** | **MathVista** | **VisuLogic** | **MMBench** | **MME-P** | **MMVP** |
-|---|---|---|---|---|---|---|---|---|---|---|---|
-| DeltaV-2B | [🤗 Link](https://huggingface.co/wpj20000/DeltaV-2B/tree/main) | [🤖 Link](https://www.modelscope.cn/models/wpj2003/DeltaV-2B) | **2B** | 75.9 | 28.6 | 54.5 | 69.3 | 23.5 | 82.3 | 1555 | 51.3 |
+<table align="center">
+  <thead>
+    <tr>
+      <th align="center">Model</th>
+      <th align="center">HuggingFace</th>
+      <th align="center">ModelScope</th>
+      <th align="center">#Param</th>
+      <th align="center">VStar</th>
+      <th align="center">EMMA</th>
+      <th align="center">M3CoT</th>
+      <th align="center">MathVista</th>
+      <th align="center">VisuLogic</th>
+      <th align="center">MMBench</th>
+      <th align="center">MME-P</th>
+      <th align="center">MMVP</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="center">DeltaV-2B</td>
+      <td align="center"><a href="https://huggingface.co/wpj20000/DeltaV-2B/tree/main">🤗 Link</a></td>
+      <td align="center"><a href="https://www.modelscope.cn/models/wpj2003/DeltaV-2B">🤖 Link</a></td>
+      <td align="center"><strong>2B</strong></td>
+      <td align="center">75.9</td>
+      <td align="center">28.6</td>
+      <td align="center">54.5</td>
+      <td align="center">69.3</td>
+      <td align="center">23.5</td>
+      <td align="center">82.3</td>
+      <td align="center">1555</td>
+      <td align="center">51.3</td>
+    </tr>
+  </tbody>
+</table>
 
 ## TODO / Roadmap
 
