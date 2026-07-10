@@ -8,7 +8,7 @@
 [![HuggingFace](https://img.shields.io/badge/HuggingFace-DeltaV--2B-yellow.svg?logo=HuggingFace)](https://huggingface.co/wpj20000/DeltaV-2B/tree/main)
 [![ModelScope](https://img.shields.io/badge/ModelScope-DeltaV--2B-green.svg)](https://www.modelscope.cn/models/wpj2003/DeltaV-2B)
 [![Dataset](https://img.shields.io/badge/Dataset-StructCoT-orange.svg)](https://www.modelscope.cn/datasets/wpj2003/StructCoT)
-[![Website](https://img.shields.io/badge/Website-DeltaV-blue.svg)]()
+[![Website](https://img.shields.io/badge/Website-DeltaV-blue.svg)](https://pengjie-w.github.io/DeltaV/)
 [![Demo](https://img.shields.io/badge/Demo-Live-purple.svg)](http://vlrlabmonkey.xyz:10088/)
 
 </div>
