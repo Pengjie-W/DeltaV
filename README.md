@@ -25,6 +25,16 @@ DeltaV is a unified large multimodal model (ULMM) designed to think with visual 
 
 This repository releases the **DeltaV-2B ULMM** together with the **TSIM-Tok tokenizer**, inference scripts, and tiny samples.
 
+## DeltaV Workflow
+
+https://github.com/user-attachments/assets/724b2ff7-279a-4139-a9a0-de734014431d
+
+## Hugging Face Model Zoo
+
+| Model | Description | Hugging Face |
+| --- | --- | --- |
+| DeltaV-2B | Unified large multimodal model for interleaved multimodal reasoning with visual state updates. | [wpj20000/DeltaV-2B](https://huggingface.co/wpj20000/DeltaV-2B/tree/main) |
+
 ## TODO / Roadmap
 
 This release focuses on **inference** with the pretrained DeltaV-2B checkpoint. The following components are not included yet and will be released in a future update:
@@ -33,10 +43,6 @@ This release focuses on **inference** with the pretrained DeltaV-2B checkpoint. 
 - [ ] **Zebra-CoT / StructCoT evaluation (scoring) tools** — the LLM-API-based scorers and their guide, pending the public StructCoT release.
 - [ ] **DeltaV training** — the two-stage DeltaV ULMM training scripts and configs.
 - [ ] **TSIM-Tok training and testing** — the TSIM-Tok tokenizer training and reconstruction-evaluation code (the tokenizer *model* is retained as DeltaV's visual backbone).
-
-## DeltaV Workflow
-
-https://github.com/user-attachments/assets/724b2ff7-279a-4139-a9a0-de734014431d
 
 ## Repository Layout
 
