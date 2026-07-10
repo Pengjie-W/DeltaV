@@ -4,7 +4,7 @@
 
 **A unified large multimodal model that thinks with visual state updates—modeling only the sparse, reasoning-critical changes across reasoning steps instead of regenerating full images.**
 
-[![arXiv](https://img.shields.io/badge/Arxiv-DeltaV-b31b1b.svg?logo=arXiv)]()
+[![arXiv](https://img.shields.io/badge/Arxiv-DeltaV-b31b1b.svg?logo=arXiv)](https://arxiv.org/abs/2607.08434)
 [![HuggingFace](https://img.shields.io/badge/HuggingFace-DeltaV--2B-yellow.svg?logo=HuggingFace)](https://huggingface.co/wpj20000/DeltaV-2B/tree/main)
 [![ModelScope](https://img.shields.io/badge/ModelScope-DeltaV--2B-green.svg)](https://www.modelscope.cn/models/wpj2003/DeltaV-2B)
 [![Dataset](https://img.shields.io/badge/Dataset-StructCoT-orange.svg)](https://www.modelscope.cn/datasets/wpj2003/StructCoT)
