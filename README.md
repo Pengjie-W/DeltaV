@@ -69,9 +69,9 @@ https://github.com/user-attachments/assets/724b2ff7-279a-4139-a9a0-de734014431d
 This release focuses on **inference** with the pretrained DeltaV-2B checkpoint. The following components are not included yet and will be released in a future update:
 
 - [ ] **StructCoT dataset** — the full StructCoT dataset and training data. (A small inference example, `data/struct_infer_sample.json`, is included so inference is runnable; the benchmark numbers in the tables below are kept as a record.)
-- [ ] **Zebra-CoT / StructCoT evaluation (scoring) tools** — the LLM-API-based scorers and their guide, pending the public StructCoT release.
 - [ ] **DeltaV training** — the two-stage DeltaV ULMM training scripts and configs.
 - [ ] **TSIM-Tok training and testing** — the TSIM-Tok tokenizer training and reconstruction-evaluation code (the tokenizer *model* is retained as DeltaV's visual backbone).
+- [ ] **Zebra-CoT / StructCoT evaluation (scoring) tools** — the LLM-API-based scorers and their guide, pending the public StructCoT release.
 
 ## Repository Layout
 
