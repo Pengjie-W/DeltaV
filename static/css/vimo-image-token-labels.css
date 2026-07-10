@@ -1,0 +1,37 @@
+#playground .vimo-token-image-container {
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+#playground .vimo-image-token-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  width: fit-content;
+  padding: 0.28rem 0.58rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 999px;
+  background: #f9fafb;
+  color: #4b5563;
+  font-size: 0.72rem;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  user-select: none;
+}
+
+#playground .vimo-image-token-label::before {
+  width: 0.36rem;
+  height: 0.36rem;
+  border-radius: 999px;
+  background: #d97706;
+  content: "";
+}
+
+@media (max-width: 640px) {
+  #playground .vimo-image-token-label {
+    font-size: 0.68rem;
+  }
+}

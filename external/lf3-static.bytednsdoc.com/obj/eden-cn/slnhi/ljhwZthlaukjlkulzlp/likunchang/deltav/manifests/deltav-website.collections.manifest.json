@@ -1,0 +1,770 @@
+{
+  "collections": [
+    {
+      "id": "Examples",
+      "scenario": "Examples",
+      "packages": [
+        {
+          "meta": {
+            "messages": [
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "images",
+                    "content": [
+                      "/input/Jigsaw_Restoration_Jigsaw_Puzzle_struct_sample_006009_0.jpg"
+                    ]
+                  },
+                  {
+                    "type": "text",
+                    "content": "This image contains 4 shuffled image blocks, each labeled with a number (1–4) in the top-left corner.Determine, by visual reasoning, which option provides the correct assembly order (listing the numbers from left to right, top to bottom).Explain your reasoning process and provide the final correct choice. \nChoices：\nA: [1, 2, 4, 3]\nB: [2, 3, 1, 4]\nC: [2, 4, 3, 1]\nD: [1, 2, 3, 4]"
+                  }
+                ]
+              },
+              {
+                "role": "assistant",
+                "content": [
+                  {
+                    "type": "text",
+                    "content": "Try the assembly order of option A"
+                  },
+                  {
+                    "type": "images",
+                    "content": [
+                      "/images/Jigsaw_Restoration_Jigsaw_Puzzle_struct_sample_006009_out_0.png"
+                    ]
+                  },
+                  {
+                    "type": "text",
+                    "content": ". The arrangement of the pieces does not align properly, as the top right corner shows a mismatch in the ceiling and wall alignment. Therefore, I think it might be wrong.\n\nTry the assembly order of option B"
+                  },
+                  {
+                    "type": "images",
+                    "content": [
+                      "/images/Jigsaw_Restoration_Jigsaw_Puzzle_struct_sample_006009_out_1.png"
+                    ]
+                  },
+                  {
+                    "type": "text",
+                    "content": ". The bottom left piece appears to be incorrectly placed, disrupting the continuity of the bed and floor. Therefore, I think it might be wrong.\n\nTry the assembly order of option C"
+                  },
+                  {
+                    "type": "images",
+                    "content": [
+                      "/images/Jigsaw_Restoration_Jigsaw_Puzzle_struct_sample_006009_out_2.png"
+                    ]
+                  },
+                  {
+                    "type": "text",
+                    "content": ". All pieces fit together seamlessly, maintaining consistent alignment of the ceiling, walls, furniture, and floor. Therefore, I think it might be right.\n\nTry the assembly order of option D"
+                  },
+                  {
+                    "type": "images",
+                    "content": [
+                      "/images/Jigsaw_Restoration_Jigsaw_Puzzle_struct_sample_006009_out_3.png"
+                    ]
+                  },
+                  {
+                    "type": "text",
+                    "content": ". The top right piece is misaligned, showing an incorrect continuation of the room's features. Therefore, I think it might be wrong.\n\nC"
+                  }
+                ]
+              }
+            ],
+            "name": "STRUCT 006009",
+            "current_id": "struct_006009",
+            "dataset": "struct",
+            "subset": "Image Restoration and Jigsaw Reasoning —— Jigsaw Puzzle",
+            "source_dataset": "struct",
+            "category": "Image Restoration and Jigsaw Reasoning",
+            "question": "This image contains 4 shuffled image blocks, each labeled with a number (1–4) in the top-left corner.Determine, by visual reasoning, which option provides the correct assembly order (listing the numbers from left to right, top to bottom).Explain your reasoning process and provide the final correct choice. \nChoices：\nA: [1, 2, 4, 3]\nB: [2, 3, 1, 4]\nC: [2, 4, 3, 1]\nD: [1, 2, 3, 4]",
+            "verdict": "Correct",
+            "prediction": "C",
+            "gt": "C"
+          }
+        },
+        {
+          "meta": {
+            "messages": [
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "images",
+                    "content": [
+                      "/input/Logic_Ciphers_zebra_sample_000640_0.jpg"
+                    ]
+                  },
+                  {
+                    "type": "text",
+                    "content": "Encode 'UQMPVB' with Polybius square."
+                  }
+                ]
+              },
+              {
+                "role": "assistant",
+                "content": [
+                  {
+                    "type": "text",
+                    "content": "THOUGHT 0: The problem requires encoding the word 'UQMPVB' using the provided Polybius square. Encoding involves finding the row and column number for each letter in the word.\nTHOUGHT 1: The first letter to encode is 'U'. I need to find its position in the Polybius square to determine its coordinates."
+                  },
+                  {
+                    "type": "images",
+                    "content": [
+                      "/images/Logic_Ciphers_zebra_sample_000640_out_0.png"
+                    ]
+                  },
+                  {
+                    "type": "text",
+                    "content": "THOUGHT 2: The image shows that the letter 'U' is located in the 4th row and 5th column. So, the coordinates for 'U' are (4, 5).\nTHOUGHT 3: The next letter is 'Q'. I need to find its position in the Polybius square."
+                  },
+                  {
+                    "type": "images",
+                    "content": [
+                      "/images/Logic_Ciphers_zebra_sample_000640_out_1.png"
+                    ]
+                  },
+                  {
+                    "type": "text",
+                    "content": "THOUGHT 4: The image shows that the letter 'Q' is located in the 4th row and 1st column. So, the coordinates for 'Q' are (4, 1).\nTHOUGHT 5: The next letter is 'M'. I need to find its position in the Polybius square."
+                  },
+                  {
+                    "type": "images",
+                    "content": [
+                      "/images/Logic_Ciphers_zebra_sample_000640_out_2.png"
+                    ]
+                  },
+                  {
+                    "type": "text",
+                    "content": "THOUGHT 6: The image shows that the letter 'M' is located in the 3rd row and 2nd column. So, the coordinates for 'M' are (3, 2).\nTHOUGHT 7: The next letter is 'P'. I need to find its position in the Polybius square."
+                  },
+                  {
+                    "type": "images",
+                    "content": [
+                      "/images/Logic_Ciphers_zebra_sample_000640_out_3.png"
+                    ]
+                  },
+                  {
+                    "type": "text",
+                    "content": "THOUGHT 8: The image shows that the letter 'P' is located in the 3rd row and 5th column. So, the coordinates for 'P' are (3, 5).\nTHOUGHT 9: The next letter is 'V'. I need to find its position in the Polybius square."
+                  },
+                  {
+                    "type": "images",
+                    "content": [
+                      "/images/Logic_Ciphers_zebra_sample_000640_out_4.png"
+                    ]
+                  },
+                  {
+                    "type": "text",
+                    "content": "THOUGHT 10: The image shows that the letter 'V' is located in the 5th row and 1st column. So, the coordinates for 'V' are (5, 1).\nTHOUGHT 11: The final letter is 'B'. I need to find its position in the Polybius square."
+                  },
+                  {
+                    "type": "images",
+                    "content": [
+                      "/images/Logic_Ciphers_zebra_sample_000640_out_5.png"
+                    ]
+                  },
+                  {
+                    "type": "text",
+                    "content": "THOUGHT 12: The image shows that the letter 'B' is located in the 1st row and 2nd column. So, the coordinates for 'B' are (1, 2).\nTHOUGHT 13: I have found the coordinates for each letter in the word 'UQMPVB'. I will list them in order.\n\nFinal Answer: Coordinates: [(4, 5), (4, 1), (3, 2), (3, 5), (5, 1), (1, 2)]"
+                  }
+                ]
+              }
+            ],
+            "name": "ZEBRA 000640",
+            "current_id": "zebra_000640",
+            "dataset": "zebra",
+            "subset": "Logical and Abstract Reasoning —— Ciphers",
+            "source_dataset": "zebra",
+            "category": "Logical and Abstract Reasoning",
+            "question": "Encode 'UQMPVB' with Polybius square.",
+            "verdict": "Correct",
+            "prediction": "[(4, 5), (4, 1), (3, 2), (3, 5), (5, 1), (1, 2)]",
+            "gt": "Coordinates: [(4, 5), (4, 1), (3, 2), (3, 5), (5, 1), (1, 2)]"
+          }
+        },
+        {
+          "meta": {
+            "messages": [
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "images",
+                    "content": [
+                      "/input/Logic_Sudoku_struct_sample_001708_0.png"
+                    ]
+                  },
+                  {
+                    "type": "text",
+                    "content": "Please solve the following Sudoku puzzle. Coordinates are 1-indexed: (x, y), where x is the column and y is the row."
+                  }
+                ]
+              },
+              {
+                "role": "assistant",
+                "content": [
+                  {
+                    "type": "text",
+                    "content": "In step 1, using the block single-missing scan, the cell at coordinate (4, 1) is uniquely determined to be digit 4 because its block has exactly one empty cell and is missing only digit 4.\nusing the block single-missing scan, the cell at coordinate (5, 4) is uniquely determined to be digit 3 because its block has exactly one empty cell and is missing only digit 3.\nusing the block single-missing scan, the cell at coordinate (1, 5) is uniquely determined to be digit 3 because its block has exactly one empty cell and is missing only digit 3.\nusing the block single-missing scan, the cell at coordinate (6, 6) is uniquely determined to be digit 3 because its block has exactly one empty cell and is missing only digit 3."
+                  },
+                  {
+                    "type": "images",
+                    "content": [
+                      "/images/Logic_Sudoku_struct_sample_001708_out_0.png"
+                    ]
+                  },
+                  {
+                    "type": "text",
+                    "content": "In step 2, using the row single-missing scan, the cell at coordinate (2, 1) is uniquely determined to be digit 3 because row 1 has exactly one empty cell and is missing only digit 3.\nusing the row single-missing scan, the cell at coordinate (3, 2) is uniquely determined to be digit 2 because row 2 has exactly one empty cell and is missing only digit 2."
+                  },
+                  {
+                    "type": "images",
+                    "content": [
+                      "/images/Logic_Sudoku_struct_sample_001708_out_1.png"
+                    ]
+                  },
+                  {
+                    "type": "text",
+                    "content": "Final Answer: {\"(2, 1)\": \"3\", \"(4, 1)\": \"4\", \"(3, 2)\": \"2\", \"(5, 4)\": \"3\", \"(1, 5)\": \"3\", \"(6, 6)\": \"3\"}"
+                  }
+                ]
+              }
+            ],
+            "name": "STRUCT 001708",
+            "current_id": "struct_001708",
+            "dataset": "struct",
+            "subset": "Logical and Abstract Reasoning —— Sudoku",
+            "source_dataset": "struct",
+            "category": "Logical and Abstract Reasoning",
+            "question": "Please solve the following Sudoku puzzle. Coordinates are 1-indexed: (x, y), where x is the column and y is the row.",
+            "verdict": "Correct",
+            "prediction": "{\"(2, 1)\": \"3\", \"(4, 1)\": \"4\", \"(3, 2)\": \"2\", \"(5, 4)\": \"3\", \"(1, 5)\": \"3\", \"(6, 6)\": \"3\"}",
+            "gt": "{\"(2, 1)\": \"3\", \"(4, 1)\": \"4\", \"(3, 2)\": \"2\", \"(5, 4)\": \"3\", \"(1, 5)\": \"3\", \"(6, 6)\": \"3\"}"
+          }
+        },
+        {
+          "meta": {
+            "messages": [
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "images",
+                    "content": [
+                      "/input/Logic_light_up_struct_sample_001007_0.png"
+                    ]
+                  },
+                  {
+                    "type": "text",
+                    "content": "Light Up puzzle. Place bulbs so that all white cells are lit, no bulbs illuminate each other, and numbered black cells have exactly the required number of adjacent bulbs."
+                  }
+                ]
+              },
+              {
+                "role": "assistant",
+                "content": [
+                  {
+                    "type": "text",
+                    "content": "Step 1: Place a bulb at (0, 4)."
+                  },
+                  {
+                    "type": "images",
+                    "content": [
+                      "/images/Logic_light_up_struct_sample_001007_out_0.png"
+                    ]
+                  },
+                  {
+                    "type": "text",
+                    "content": "Step 2: Place a bulb at (1, 0)."
+                  },
+                  {
+                    "type": "images",
+                    "content": [
+                      "/images/Logic_light_up_struct_sample_001007_out_1.png"
+                    ]
+                  },
+                  {
+                    "type": "text",
+                    "content": "Step 3: Place a bulb at (2, 5)."
+                  },
+                  {
+                    "type": "images",
+                    "content": [
+                      "/images/Logic_light_up_struct_sample_001007_out_2.png"
+                    ]
+                  },
+                  {
+                    "type": "text",
+                    "content": "Step 4: Place a bulb at (3, 3)."
+                  },
+                  {
+                    "type": "images",
+                    "content": [
+                      "/images/Logic_light_up_struct_sample_001007_out_3.png"
+                    ]
+                  },
+                  {
+                    "type": "text",
+                    "content": "Step 5: Place a bulb at (4, 2)."
+                  },
+                  {
+                    "type": "images",
+                    "content": [
+                      "/images/Logic_light_up_struct_sample_001007_out_4.png"
+                    ]
+                  },
+                  {
+                    "type": "text",
+                    "content": "Step 6: Place a bulb at (5, 5)."
+                  },
+                  {
+                    "type": "images",
+                    "content": [
+                      "/images/Logic_light_up_struct_sample_001007_out_5.png"
+                    ]
+                  },
+                  {
+                    "type": "text",
+                    "content": "Final Answer: 6"
+                  }
+                ]
+              }
+            ],
+            "name": "STRUCT 001007",
+            "current_id": "struct_001007",
+            "dataset": "struct",
+            "subset": "Logical and Abstract Reasoning —— light up",
+            "source_dataset": "struct",
+            "category": "Logical and Abstract Reasoning",
+            "question": "Light Up puzzle. Place bulbs so that all white cells are lit, no bulbs illuminate each other, and numbered black cells have exactly the required number of adjacent bulbs.",
+            "verdict": "Correct",
+            "prediction": "6",
+            "gt": "6"
+          }
+        },
+        {
+          "meta": {
+            "messages": [
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "images",
+                    "content": [
+                      "/input/Logic_rectangle_tiling_struct_sample_001002_0.png"
+                    ]
+                  },
+                  {
+                    "type": "text",
+                    "content": "A grid contains numbers. Each number represents the area of the rectangle that contains it. The grid must be fully partitioned into rectangles, each containing exactly one number and having area equal to that number. What is the minimum number of rectangles needed?"
+                  }
+                ]
+              },
+              {
+                "role": "assistant",
+                "content": [
+                  {
+                    "type": "text",
+                    "content": "Step 1: Identify a rectangle of area 4 covering rows 4–5 and columns 4–5."
+                  },
+                  {
+                    "type": "images",
+                    "content": [
+                      "/images/Logic_rectangle_tiling_struct_sample_001002_out_0.png"
+                    ]
+                  },
+                  {
+                    "type": "text",
+                    "content": "Step 2: Identify a rectangle of area 3 covering rows 1–3 and column 5."
+                  },
+                  {
+                    "type": "images",
+                    "content": [
+                      "/images/Logic_rectangle_tiling_struct_sample_001002_out_1.png"
+                    ]
+                  },
+                  {
+                    "type": "text",
+                    "content": "Step 3: Identify a rectangle of area 12 covering rows 1–3 and columns 1–4."
+                  },
+                  {
+                    "type": "images",
+                    "content": [
+                      "/images/Logic_rectangle_tiling_struct_sample_001002_out_2.png"
+                    ]
+                  },
+                  {
+                    "type": "text",
+                    "content": "Step 4: Identify a rectangle of area 3 covering row 4 and columns 1–3."
+                  },
+                  {
+                    "type": "images",
+                    "content": [
+                      "/images/Logic_rectangle_tiling_struct_sample_001002_out_3.png"
+                    ]
+                  },
+                  {
+                    "type": "text",
+                    "content": "Step 5: Identify a rectangle of area 3 covering row 5 and columns 1–3."
+                  },
+                  {
+                    "type": "images",
+                    "content": [
+                      "/images/Logic_rectangle_tiling_struct_sample_001002_out_4.png"
+                    ]
+                  },
+                  {
+                    "type": "text",
+                    "content": "Final Answer: 5"
+                  }
+                ]
+              }
+            ],
+            "name": "STRUCT 001002",
+            "current_id": "struct_001002",
+            "dataset": "struct",
+            "subset": " Logical and Abstract Reasoning —— rectangle tiling",
+            "source_dataset": "struct",
+            "category": "Logical and Abstract Reasoning",
+            "question": "A grid contains numbers. Each number represents the area of the rectangle that contains it. The grid must be fully partitioned into rectangles, each containing exactly one number and having area equal to that number. What is the minimum number of rectangles needed?",
+            "verdict": "Correct",
+            "prediction": "5",
+            "gt": "5"
+          }
+        },
+        {
+          "meta": {
+            "messages": [
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "images",
+                    "content": [
+                      "/input/Math_Plane_Geometry_struct_sample_003046_0.png"
+                    ]
+                  },
+                  {
+                    "type": "text",
+                    "content": "In the augmented figure, an angle bisector from vertex A meets side BC at point D. The two triangular regions ABD and ACD are colored and observed to have equal areas. Using this information, determine the ratio \\(\\displaystyle \\frac{AB}{AC}\\). Fill in the blank: \\(\\displaystyle \\frac{AB}{AC} = \\_\\_\\_\\_."
+                  }
+                ]
+              },
+              {
+                "role": "assistant",
+                "content": [
+                  {
+                    "type": "text",
+                    "content": "THOUGHT 0: The problem asks for the ratio of sides AB to AC in a triangle ABC. We are given that the triangle is isosceles, as indicated by the diagram. The key information is that the angle bisector of angle A meets side BC at point D, and the areas of triangles ABD and ACD are equal. To better understand the geometric relationships, I will visualize the triangle and the angle bisector.\n\nTHOUGHT 1: To better understand the geometric relationships, I will visualize the triangle ABC with the angle bisector AD drawn from vertex A to side BC, meeting at point D. This will help clarify the areas of the two triangles ABD and ACD."
+                  },
+                  {
+                    "type": "images",
+                    "content": [
+                      "/images/Math_Plane_Geometry_struct_sample_003046_out_0.png"
+                    ]
+                  },
+                  {
+                    "type": "text",
+                    "content": "THOUGHT 2: The visual thought shows the triangle ABC with the angle bisector AD. Since the triangle is isosceles (AB = AC), the angle bisector AD also acts as the median to BC. This means D is the midpoint of BC. The two triangles ABD and ACD share the same height (the perpendicular from A to BC) and have equal bases (BD = DC because D is the midpoint). Therefore, the areas of triangles ABD and ACD must be equal.\n\nTHOUGHT 3: Since the areas of triangles ABD and ACD are equal, and they share the same height from vertex A to side BC, their areas are directly proportional to their bases. As established, the bases are BD and DC, and since D is the midpoint, BD = DC. This confirms that the areas are indeed equal.\n\nTHOUGHT 4: Now, let's analyze the triangles ABD and ACD. Both triangles share the same vertex A. They also share the same height (the perpendicular from A to BC) and have the same base length (BD = DC). By the formula for the area of a triangle (Area = 1/2 * base * height), the areas of triangles ABD and ACD are equal because their bases are equal and their heights are equal.\n\nTHOUGHT 5: The problem states that the areas of triangles ABD and ACD are equal. We have just shown that this is a necessary consequence of the triangle being isosceles (AB = AC) and the angle bisector AD meeting BC at its midpoint D. Therefore, the condition that the areas are equal is sufficient to conclude that the triangle is isosceles.\n\nTHOUGHT 6: Since triangle ABC is isosceles with AB = AC, the ratio of AB to AC is 1.\n\nFinal Answer: 1"
+                  }
+                ]
+              }
+            ],
+            "name": "STRUCT 003046",
+            "current_id": "struct_003046",
+            "dataset": "struct",
+            "subset": "Mathematical and Algorithmic Reasoning —— Plane Geometry",
+            "source_dataset": "struct",
+            "category": "Mathematical and Algorithmic Reasoning",
+            "question": "In the augmented figure, an angle bisector from vertex A meets side BC at point D. The two triangular regions ABD and ACD are colored and observed to have equal areas. Using this information, determine the ratio \\(\\displaystyle \\frac{AB}{AC}\\). Fill in the blank: \\(\\displaystyle \\frac{AB}{AC} = \\_\\_\\_\\_.",
+            "verdict": "Correct",
+            "prediction": "1",
+            "gt": "1:1"
+          }
+        },
+        {
+          "meta": {
+            "messages": [
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "images",
+                    "content": [
+                      "/input/Science_Medicine_struct_sample_004121_0.jpg"
+                    ]
+                  },
+                  {
+                    "type": "text",
+                    "content": "What category of disease severity is this?"
+                  }
+                ]
+              },
+              {
+                "role": "assistant",
+                "content": [
+                  {
+                    "type": "text",
+                    "content": "+ Reasoning:\n- Step 1: Detect contamination region \n- Answer: ```json\n[{\"bbox_2d\": [0.3218800506050001, 0.5450000000000001, 0.6280000000000001, 0.8406699999999999], \"label\": \"disease area\"}]\n```"
+                  },
+                  {
+                    "type": "images",
+                    "content": [
+                      "/images/Science_Medicine_struct_sample_004121_out_0.png"
+                    ]
+                  },
+                  {
+                    "type": "text",
+                    "content": "- Step 2: What is the visual blueprint of this lesion? \n- Answer: Also widening of temporal horn of lateral ventricle. \n- Step 3: What is the lesion's grade?  \n- Answer: MTA = 2 \n\n Final Answer:  Status (Mild-Demetia)"
+                  }
+                ]
+              }
+            ],
+            "name": "STRUCT 004121",
+            "current_id": "struct_004121",
+            "dataset": "struct",
+            "subset": "Natural Science and Domain-Specific Reasoning —— Medicine",
+            "source_dataset": "struct",
+            "category": "Natural Science and Domain-Specific Reasoning",
+            "question": "What category of disease severity is this?",
+            "verdict": "Correct",
+            "prediction": "Status (Mild-Demetia)",
+            "gt": "Status (Mild-Demetia)"
+          }
+        },
+        {
+          "meta": {
+            "messages": [
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "images",
+                    "content": [
+                      "/input/Spatial_Planning_Maze_zebra_sample_000616_0.jpg"
+                    ]
+                  },
+                  {
+                    "type": "text",
+                    "content": "How many footwork units separate green origin from red destination?"
+                  }
+                ]
+              },
+              {
+                "role": "assistant",
+                "content": [
+                  {
+                    "type": "text",
+                    "content": "THOUGHT 0: The problem asks us to determine the shortest number of steps, or \"footwork units,\" required to navigate from the green starting point to the red destination within the provided maze. I will begin by carefully examining the maze structure shown in the initial image to identify the exact locations of the green origin and the red destination. The green square is located at approximately (row 6, column 2) and the red square is at (row 4, column 0) if we consider a grid overlay.\n\nTHOUGHT 1: To find the solution, I need to trace the most efficient path through the maze, ensuring that I only move through the white corridors and avoid all black wall segments. This process involves navigating around the obstacles to find the shortest possible route. To clearly visualize this path and count the individual steps, I will generate an image highlighting the optimal route."
+                  },
+                  {
+                    "type": "images",
+                    "content": [
+                      "/images/Spatial_Planning_Maze_zebra_sample_000616_out_0.png"
+                    ]
+                  },
+                  {
+                    "type": "text",
+                    "content": "THOUGHT 2: Upon reviewing the visual representation of the path, which is highlighted in blue, I can now accurately count each segment of the journey. By meticulously counting every single step taken from the green origin to the red destination along the blue line, it is evident that the shortest path consists of exactly 12 footwork units.\n\nFinal Answer: It takes 12 steps to reach the red square from the green square."
+                  }
+                ]
+              }
+            ],
+            "name": "ZEBRA 000616",
+            "current_id": "zebra_000616",
+            "dataset": "zebra",
+            "subset": "Spatial Perception and Embodied Planning —— Maze",
+            "source_dataset": "zebra",
+            "category": "Spatial Perception and Embodied Planning",
+            "question": "How many footwork units separate green origin from red destination?",
+            "verdict": "Correct",
+            "prediction": "12",
+            "gt": "It takes 12 steps to reach the red square from the green square."
+          }
+        },
+        {
+          "meta": {
+            "messages": [
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "images",
+                    "content": [
+                      "/input/Strategy_Planning_Chess_zebra_sample_000107_0.jpg"
+                    ]
+                  },
+                  {
+                    "type": "text",
+                    "content": "What is the best move for White to play?\n\nA: Qd2\nB: Qxc7\nC: h3\nD: f4"
+                  }
+                ]
+              },
+              {
+                "role": "assistant",
+                "content": [
+                  {
+                    "type": "text",
+                    "content": "THOUGHT 0: The problem asks for the best move for White in the given chess position. I need to evaluate the provided options.\nTHOUGHT 1: Let's first consider option A, Qd2. This move develops the queen and connects the rooks, but it doesn't create any immediate threats or improve White's position significantly."
+                  },
+                  {
+                    "type": "images",
+                    "content": [
+                      "/images/Strategy_Planning_Chess_zebra_sample_000107_out_0.png"
+                    ]
+                  },
+                  {
+                    "type": "text",
+                    "content": "THOUGHT 2: Next, let's look at option B, Qxc7. This move captures Black's pawn on c7, winning material. However, it places the queen on an exposed square and doesn't seem to lead to a clear advantage."
+                  },
+                  {
+                    "type": "images",
+                    "content": [
+                      "/images/Strategy_Planning_Chess_zebra_sample_000107_out_1.png"
+                    ]
+                  },
+                  {
+                    "type": "text",
+                    "content": "THOUGHT 3: Now consider option C, h3. This move prevents Black's bishop from potentially moving to g4, but it is a slow move that doesn't address the central tension or improve White's piece activity."
+                  },
+                  {
+                    "type": "images",
+                    "content": [
+                      "/images/Strategy_Planning_Chess_zebra_sample_000107_out_2.png"
+                    ]
+                  },
+                  {
+                    "type": "text",
+                    "content": "THOUGHT 4: Finally, let's evaluate option D, f4. This move challenges Black's central pawn on e5 and opens lines for White's pieces, particularly the rook on f1. It creates dynamic possibilities in the center."
+                  },
+                  {
+                    "type": "images",
+                    "content": [
+                      "/images/Strategy_Planning_Chess_zebra_sample_000107_out_3.png"
+                    ]
+                  },
+                  {
+                    "type": "text",
+                    "content": "THOUGHT 5: Comparing the options, f4 is the most active move that creates immediate threats and improves White's position by opening lines and challenging Black's central control. The other options are less effective.\n\nFinal Answer: D"
+                  }
+                ]
+              }
+            ],
+            "name": "ZEBRA 000107",
+            "current_id": "zebra_000107",
+            "dataset": "zebra",
+            "subset": "Strategic Game and Planning —— Chess",
+            "source_dataset": "zebra",
+            "category": "Strategic Game and Planning",
+            "question": "What is the best move for White to play?\n\nA: Qd2\nB: Qxc7\nC: h3\nD: f4",
+            "verdict": "Correct",
+            "prediction": "D",
+            "gt": "D"
+          }
+        },
+        {
+          "meta": {
+            "messages": [
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "images",
+                    "content": [
+                      "/input/Visual_Search_General_VQA_struct_sample_005076_0.jpg"
+                    ]
+                  },
+                  {
+                    "type": "text",
+                    "content": "The paper is on what?"
+                  }
+                ]
+              },
+              {
+                "role": "assistant",
+                "content": [
+                  {
+                    "type": "text",
+                    "content": "The question asks what the paper is on. In the image, there are two parking meters in the foreground. The right-hand parking meter, as indicated by"
+                  },
+                  {
+                    "type": "images",
+                    "content": [
+                      "/images/Visual_Search_General_VQA_struct_sample_005076_out_0.png"
+                    ]
+                  },
+                  {
+                    "type": "text",
+                    "content": ", has a white rectangular area which is a ticket slot. Looking directly above this slot, we can see a blue sticker which is likely the paper mentioned in the question. Since the paper (the ticket) is inserted into the ticket slot of the parking meter, the paper is on the parking meter.\nFinal Answer: Parking meter"
+                  }
+                ]
+              }
+            ],
+            "name": "STRUCT 005076",
+            "current_id": "struct_005076",
+            "dataset": "struct",
+            "subset": "Visual Search —— General VQA",
+            "source_dataset": "struct",
+            "category": "Visual Search",
+            "question": "The paper is on what?",
+            "verdict": "Correct",
+            "prediction": "Parking meter",
+            "gt": "Parking meter"
+          }
+        },
+        {
+          "meta": {
+            "messages": [
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "images",
+                    "content": [
+                      "/input/Visual_Search_Visual_Search_zebra_sample_001969_0.jpg"
+                    ]
+                  },
+                  {
+                    "type": "text",
+                    "content": "Based on the provided image, , identify where coconuts are typically found hanging."
+                  }
+                ]
+              },
+              {
+                "role": "assistant",
+                "content": [
+                  {
+                    "type": "text",
+                    "content": "THOUGHT 0: To answer the question, I need to examine the image for any visual cues indicating where coconuts are located.\nTHOUGHT 1: I will highlight the specific area in the image that contains the coconuts to focus the analysis."
+                  },
+                  {
+                    "type": "images",
+                    "content": [
+                      "/images/Visual_Search_Visual_Search_zebra_sample_001969_out_0.png"
+                    ]
+                  },
+                  {
+                    "type": "text",
+                    "content": "THOUGHT 2: The red bounding box clearly outlines a coconut, which is visibly hanging from a palm tree branch.\nTHOUGHT 3: The visual evidence within the highlighted region directly answers the question about the location of coconuts.\n\nFinal Answer: Hanging from palm trees."
+                  }
+                ]
+              }
+            ],
+            "name": "ZEBRA 001969",
+            "current_id": "zebra_001969",
+            "dataset": "zebra",
+            "subset": "Visual Search —— Visual Search",
+            "source_dataset": "zebra",
+            "category": "Visual Search",
+            "question": "Based on the provided image, , identify where coconuts are typically found hanging.",
+            "verdict": "Correct",
+            "prediction": "Hanging from palm trees.",
+            "gt": "palm tree"
+          }
+        }
+      ]
+    }
+  ]
+}

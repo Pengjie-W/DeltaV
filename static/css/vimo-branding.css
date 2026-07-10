@@ -1,0 +1,56 @@
+#introduction h1[data-vimo-title="true"] {
+  max-width: 920px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.18;
+}
+
+.mdx-content #introduction {
+  min-height: auto !important;
+  padding-bottom: 0;
+}
+
+.mdx-content #introduction .mb-20 {
+  margin-bottom: 0 !important;
+}
+
+.mdx-content p[data-vimo-intro-copy="true"] {
+  max-width: 860px;
+  margin: 1.5rem auto 2rem !important;
+  color: #374151;
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.mdx-content h2[data-vimo-examples-heading="true"] {
+  max-width: 860px;
+  margin: 2.5rem auto -2rem !important;
+  text-align: center;
+  font-size: 1.75rem;
+  font-weight: 400;
+  line-height: 1.2;
+  color: #111827;
+}
+
+@media (max-width: 768px) {
+  #introduction h1[data-vimo-title="true"] {
+    font-size: 2rem;
+    line-height: 1.22;
+  }
+
+  .mdx-content p[data-vimo-intro-copy="true"] {
+    margin-top: 0.85rem !important;
+  }
+}
+
+#playground #gallery-nav {
+  display: none !important;
+}
+
+#playground .collection-container[data-collection-id="Examples"] > div:first-child {
+  display: none !important;
+}
+
+#playground .collection-container[data-collection-id="Examples"] {
+  margin-top: 0 !important;
+}

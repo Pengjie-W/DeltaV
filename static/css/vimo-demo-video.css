@@ -1,0 +1,4 @@
+video[data-vimo-demo-video="true"] {
+  object-fit: contain !important;
+  background: #000;
+}

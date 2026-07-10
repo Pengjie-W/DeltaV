@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DeltaV</title>
+    <script>
+      (function () {
+        var parts = window.location.pathname.split("/").filter(Boolean);
+        var isGitHubPagesProject = window.location.hostname.endsWith("github.io");
+        var base = isGitHubPagesProject && parts.length > 0 ? "/" + parts[0] + "/" : "/";
+        var route = window.location.pathname;
+
+        if (route.indexOf(base) === 0) {
+          route = "/" + route.slice(base.length);
+        }
+
+        route += window.location.search + window.location.hash;
+        window.location.replace(base + "?redirect=" + encodeURIComponent(route));
+      })();
+    </script>
+  </head>
+  <body></body>
+</html>
+

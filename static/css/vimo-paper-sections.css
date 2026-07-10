@@ -1,0 +1,157 @@
+.mdx-content .vimo-paper-section {
+  margin: 4.5rem 0;
+}
+
+.mdx-content .vimo-paper-heading {
+  text-align: center;
+  margin-bottom: 1.75rem;
+}
+
+.mdx-content .vimo-paper-heading h2 {
+  color: #111827;
+  font-size: 1.875rem;
+  font-weight: 500;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.mdx-content .vimo-paper-copy {
+  max-width: 860px;
+  margin: 0 auto 2rem;
+}
+
+.mdx-content .vimo-paper-copy p {
+  color: #374151;
+  font-size: 1rem;
+  line-height: 1.75;
+  margin: 0 0 1rem;
+}
+
+.mdx-content .vimo-paper-equation {
+  color: #111827;
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 1.25rem auto 0;
+  padding: 0.8rem 1rem;
+  text-align: center;
+}
+
+.mdx-content .vimo-paper-wide {
+  width: min(1120px, calc(100vw - 2rem));
+  max-width: none;
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+
+.mdx-content .vimo-paper-figure {
+  margin: 2rem auto 3rem;
+  text-align: center;
+}
+
+.mdx-content .vimo-paper-figure.vimo-paper-wide {
+  margin-left: 50%;
+}
+
+.mdx-content .vimo-paper-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+.mdx-content .vimo-method-figure {
+  max-width: 760px;
+}
+
+.mdx-content .vimo-effectiveness-figure {
+  max-width: 1120px;
+}
+
+.mdx-content .vimo-paper-figure figcaption,
+.mdx-content .vimo-paper-note {
+  color: #6b7280;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  margin: 0.75rem auto 0;
+  max-width: 960px;
+  text-align: left;
+}
+
+.mdx-content .vimo-paper-table-block {
+  margin-top: 2.75rem;
+  margin-bottom: 2.75rem;
+}
+
+.mdx-content .vimo-paper-table-title {
+  color: #1f2937;
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.35;
+  margin: 0 0 1.25rem;
+  text-align: center;
+}
+
+.mdx-content .vimo-paper-table-container {
+  max-width: 100%;
+  margin: 0 !important;
+}
+
+.mdx-content .vimo-paper-table {
+  min-width: 880px;
+  color: #111827;
+  margin: 0 !important;
+}
+
+.mdx-content .vimo-paper-table-block > .overflow-x-auto {
+  padding-bottom: 0.25rem !important;
+}
+
+.mdx-content .vimo-paper-table-block .vimo-paper-note {
+  margin-top: 0.35rem;
+}
+
+.mdx-content .vimo-paper-table th,
+.mdx-content .vimo-paper-table td {
+  text-align: center;
+  white-space: nowrap;
+  padding: 0.72rem 0.82rem;
+}
+
+.mdx-content .vimo-paper-table th {
+  color: #1f2937;
+  background: #f8fafc;
+  border-top: 1px solid #e5e7eb;
+  font-weight: 400;
+}
+
+.mdx-content .vimo-paper-table .vimo-paper-setting {
+  text-align: left;
+}
+
+.mdx-content .vimo-paper-table tbody tr:first-child td {
+  border-top: 1px solid #d1d5db;
+}
+
+@media (max-width: 768px) {
+  .mdx-content .vimo-paper-section {
+    margin: 3.5rem 0;
+  }
+
+  .mdx-content .vimo-paper-heading h2 {
+    font-size: 1.55rem;
+  }
+
+  .mdx-content .vimo-paper-table {
+    min-width: 760px;
+    font-size: 0.82rem;
+  }
+
+  .mdx-content .vimo-paper-table th,
+  .mdx-content .vimo-paper-table td {
+    padding: 0.62rem 0.68rem;
+  }
+}

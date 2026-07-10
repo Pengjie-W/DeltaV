@@ -1,0 +1,73 @@
+#benchmark .vimo-table-container {
+  max-width: 100%;
+  margin: 0 !important;
+}
+
+#benchmark .vimo-benchmark-table {
+  min-width: 1120px;
+  color: #111827;
+  margin: 0 !important;
+}
+
+#benchmark .overflow-x-auto {
+  padding-bottom: 0.25rem !important;
+}
+
+#benchmark .vimo-benchmark-table th,
+#benchmark .vimo-benchmark-table td {
+  text-align: center;
+  white-space: nowrap;
+  padding: 0.72rem 0.82rem;
+}
+
+#benchmark .vimo-benchmark-table th {
+  color: #1f2937;
+  background: #f8fafc;
+  font-weight: 400;
+}
+
+#benchmark .vimo-benchmark-table thead tr:first-child th {
+  border-top: 1px solid #e5e7eb;
+}
+
+#benchmark .vimo-benchmark-table .vimo-model-cell,
+#benchmark .vimo-benchmark-table th:first-child {
+  text-align: left;
+}
+
+#benchmark .vimo-table-group-row th {
+  border-bottom-color: #d1d5db;
+}
+
+#benchmark .vimo-table-sub-row th {
+  font-size: 0.84rem;
+  line-height: 1.25;
+}
+
+#benchmark .vimo-group-start td {
+  border-top: 2px solid #d1d5db;
+}
+
+#benchmark .vimo-row-highlight td {
+  background: #ecf4ff;
+}
+
+#benchmark .vimo-row-highlight .vimo-model-cell {
+  font-weight: 600;
+}
+
+#benchmark .vimo-table-note {
+  margin-top: 0.35rem;
+}
+
+@media (max-width: 768px) {
+  #benchmark .vimo-benchmark-table {
+    min-width: 980px;
+    font-size: 0.82rem;
+  }
+
+  #benchmark .vimo-benchmark-table th,
+  #benchmark .vimo-benchmark-table td {
+    padding: 0.62rem 0.68rem;
+  }
+}
