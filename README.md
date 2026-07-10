@@ -29,11 +29,11 @@ This repository releases the **DeltaV-2B ULMM** together with the **TSIM-Tok tok
 
 https://github.com/user-attachments/assets/724b2ff7-279a-4139-a9a0-de734014431d
 
-## Hugging Face Model Zoo
+## Model Zoo
 
-| Model | Description | Hugging Face |
-| --- | --- | --- |
-| DeltaV-2B | Unified large multimodal model for interleaved multimodal reasoning with visual state updates. | [wpj20000/DeltaV-2B](https://huggingface.co/wpj20000/DeltaV-2B/tree/main) |
+| Model | Description | Hugging Face | ModelScope |
+| --- | --- | --- | --- |
+| DeltaV-2B | ULMM with visual state updates. | [Link](https://huggingface.co/wpj20000/DeltaV-2B/tree/main) | [Link](https://www.modelscope.cn/models/wpj2003/DeltaV-2B) |
 
 ## TODO / Roadmap
 
