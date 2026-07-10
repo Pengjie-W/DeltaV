@@ -265,6 +265,4 @@ We would like to thank [Qwen3-VL](https://github.com/QwenLM/Qwen3-VL) and [VFMTo
 
 ## Copyright
 
-Please do not hesitate to share your valuable feedback—it is a key motivation that drives us to continuously improve our framework.
-
-**Note:** Our model is intended for academic research and non-commercial use only. If you are interested in a faster (smaller) or stronger model, please contact us at [xbai@hust.edu.cn](mailto:xbai@hust.edu.cn) or [ylliu@hust.edu.cn](mailto:ylliu@hust.edu.cn).
+Please do not hesitate to share your valuable feedback—it is a key motivation that drives us to continuously improve our framework. **Note:** Our model is intended for academic research and non-commercial use only. If you are interested in a faster (smaller) or stronger model, please contact us at [ylliu@hust.edu.cn](mailto:ylliu@hust.edu.cn).
