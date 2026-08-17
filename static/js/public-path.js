@@ -1,5 +1,5 @@
 (function () {
-  const ASSET_PREFIXES = ["/static/", "/images/", "/input/", "/external/"];
+  const ASSET_PREFIXES = ["/static/", "/images/", "/input/", "/external/", "/data/"];
   const ASSET_FILES = ["/samples_index.json"];
 
   function isGitHubPagesProject() {

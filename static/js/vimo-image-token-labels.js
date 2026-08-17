@@ -1,38 +1,11 @@
 (function () {
-  const tokenCountsByImage = {
-    "/images/Jigsaw_Restoration_Jigsaw_Puzzle_struct_sample_006009_out_0.png": 49,
-    "/images/Jigsaw_Restoration_Jigsaw_Puzzle_struct_sample_006009_out_1.png": 100,
-    "/images/Jigsaw_Restoration_Jigsaw_Puzzle_struct_sample_006009_out_2.png": 100,
-    "/images/Jigsaw_Restoration_Jigsaw_Puzzle_struct_sample_006009_out_3.png": 81,
-    "/images/Logic_Ciphers_zebra_sample_000640_out_0.png": 49,
-    "/images/Logic_Ciphers_zebra_sample_000640_out_1.png": 49,
-    "/images/Logic_Ciphers_zebra_sample_000640_out_2.png": 49,
-    "/images/Logic_Ciphers_zebra_sample_000640_out_3.png": 49,
-    "/images/Logic_Ciphers_zebra_sample_000640_out_4.png": 49,
-    "/images/Logic_Ciphers_zebra_sample_000640_out_5.png": 49,
-    "/images/Logic_Sudoku_struct_sample_001708_out_0.png": 9,
-    "/images/Logic_Sudoku_struct_sample_001708_out_1.png": 9,
-    "/images/Logic_light_up_struct_sample_001007_out_0.png": 9,
-    "/images/Logic_light_up_struct_sample_001007_out_1.png": 9,
-    "/images/Logic_light_up_struct_sample_001007_out_2.png": 9,
-    "/images/Logic_light_up_struct_sample_001007_out_3.png": 9,
-    "/images/Logic_light_up_struct_sample_001007_out_4.png": 9,
-    "/images/Logic_light_up_struct_sample_001007_out_5.png": 9,
-    "/images/Logic_rectangle_tiling_struct_sample_001002_out_0.png": 49,
-    "/images/Logic_rectangle_tiling_struct_sample_001002_out_1.png": 49,
-    "/images/Logic_rectangle_tiling_struct_sample_001002_out_2.png": 81,
-    "/images/Logic_rectangle_tiling_struct_sample_001002_out_3.png": 49,
-    "/images/Logic_rectangle_tiling_struct_sample_001002_out_4.png": 49,
-    "/images/Math_Plane_Geometry_struct_sample_003046_out_0.png": 49,
-    "/images/Science_Medicine_struct_sample_004121_out_0.png": 49,
-    "/images/Spatial_Planning_Maze_zebra_sample_000616_out_0.png": 9,
-    "/images/Strategy_Planning_Chess_zebra_sample_000107_out_0.png": 9,
-    "/images/Strategy_Planning_Chess_zebra_sample_000107_out_1.png": 9,
-    "/images/Strategy_Planning_Chess_zebra_sample_000107_out_2.png": 9,
-    "/images/Strategy_Planning_Chess_zebra_sample_000107_out_3.png": 9,
-    "/images/Visual_Search_General_VQA_struct_sample_005076_out_0.png": 81,
-    "/images/Visual_Search_Visual_Search_zebra_sample_001969_out_0.png": 49
-  };
+  let tokenCountsByImage = {};
+
+  function assetUrl(path) {
+    return typeof window.__deltavAsset === "function"
+      ? window.__deltavAsset(path)
+      : path;
+  }
 
   function getImagePath(image) {
     const source = image.currentSrc || image.getAttribute("src");
@@ -45,8 +18,17 @@
     }
   }
 
+  function getTokenCount(pathname) {
+    if (tokenCountsByImage[pathname]) return tokenCountsByImage[pathname];
+
+    const matchedPath = Object.keys(tokenCountsByImage).find((path) =>
+      pathname.endsWith(path)
+    );
+    return matchedPath ? tokenCountsByImage[matchedPath] : null;
+  }
+
   function addTokenLabel(image) {
-    const tokenCount = tokenCountsByImage[getImagePath(image)];
+    const tokenCount = getTokenCount(getImagePath(image));
     if (!tokenCount || !image.parentElement) return false;
 
     const container = image.parentElement;
@@ -76,11 +58,10 @@
       .forEach(addTokenLabel);
   }
 
-  function start() {
-    labelOutputImages(document);
-
+  function observePlayground() {
     const playground = document.querySelector("#playground");
     if (playground) {
+      labelOutputImages(playground);
       const observer = new MutationObserver(() => labelOutputImages(playground));
       observer.observe(playground, { childList: true, subtree: true });
       return;
@@ -104,6 +85,33 @@
       });
     });
     rootObserver.observe(root, { childList: true, subtree: true });
+  }
+
+  async function loadTokenCounts() {
+    const response = await fetch(assetUrl("/data/visual-token-counts.json"));
+    if (!response.ok) {
+      throw new Error(`Unable to load visual token counts: ${response.status}`);
+    }
+    const data = await response.json();
+    tokenCountsByImage = data.images || {};
+    window.__deltavVisualTokenCounts = tokenCountsByImage;
+    window.dispatchEvent(new CustomEvent("deltav:visual-token-counts-ready", {
+      detail: tokenCountsByImage
+    }));
+    return tokenCountsByImage;
+  }
+
+  function start() {
+    window.__deltavVisualTokenCountsReady = loadTokenCounts()
+      .then((counts) => {
+        observePlayground();
+        labelOutputImages(document);
+        return counts;
+      })
+      .catch((error) => {
+        console.error(error);
+        return {};
+      });
   }
 
   if (document.readyState === "loading") {
