@@ -17,13 +17,15 @@
 
 ## News
 
+* `2026.09.15` 📊 We release [**StructCoT**](https://www.modelscope.cn/datasets/wpj2003/StructCoT), including training data and public **StructCoT / Zebra-CoT test splits**, together with [evaluation tools](docs/eval_zebra_struct.md) for DeltaV and other models. See the [StructCoT leaderboard](#structcot-leaderboard).
+
 * ```2026.07.09 ``` 🚀 We release [DeltaV-2B](https://huggingface.co/wpj20000/DeltaV-2B/tree/main), a unified large multimodal model for interleaved multimodal reasoning.
 
 ## Introduction
 
 DeltaV is a unified large multimodal model (ULMM) designed to think with visual state updates during interleaved multimodal reasoning. Conditioned on historical visual states, it incrementally predicts compact **visual update tokens** that capture sparse but reasoning-critical changes across reasoning steps, avoiding repeated modeling of unchanged content. Token budgets are dynamically allocated by the **TSIM Router** according to temporal visual variation, and visual states are encoded by the **TSIM-Tok** tokenizer.
 
-This repository releases the **DeltaV-2B ULMM** together with the **TSIM-Tok tokenizer**, inference scripts, and tiny samples.
+This repository releases the **DeltaV-2B ULMM**, the **TSIM-Tok tokenizer**, inference scripts, and model-independent **StructCoT / Zebra-CoT benchmark evaluation**. The [StructCoT dataset](https://www.modelscope.cn/datasets/wpj2003/StructCoT) includes training data and separate public test splits; [evaluation requires only the test portion](docs/eval_zebra_struct.md#2-download-only-the-evaluation-data).
 
 ## DeltaV Workflow
 
@@ -66,12 +68,12 @@ https://github.com/user-attachments/assets/724b2ff7-279a-4139-a9a0-de734014431d
 
 ## TODO / Roadmap
 
-This release focuses on **inference** with the pretrained DeltaV-2B checkpoint. The following components are not included yet and will be released in a future update:
+This release includes **inference and benchmark scoring**. Training code remains planned:
 
-- [ ] **StructCoT dataset** — the full StructCoT dataset and training data. (A small inference example, `data/struct_infer_sample.json`, is included so inference is runnable; the benchmark numbers in the tables below are kept as a record.)
+- [x] **StructCoT dataset** — [training data and public test splits](https://www.modelscope.cn/datasets/wpj2003/StructCoT).
 - [ ] **DeltaV training** — the two-stage DeltaV ULMM training scripts and configs.
 - [ ] **TSIM-Tok training and testing** — the TSIM-Tok tokenizer training and reconstruction-evaluation code (the tokenizer *model* is retained as DeltaV's visual backbone).
-- [ ] **Zebra-CoT / StructCoT evaluation (scoring) tools** — the LLM-API-based scorers and their guide, pending the public StructCoT release.
+- [x] **StructCoT / Zebra-CoT evaluation** — lightweight scorers, reference-answer caches, third-party prediction support, and [download / evaluation instructions](docs/eval_zebra_struct.md).
 
 ## Repository Layout
 
@@ -83,12 +85,15 @@ scripts/     Ready-to-run scripts for DeltaV inference and data utilities
 configs/     Model and acceleration configs
 data/        Tiny samples
 docs/        Extended tutorials and README media assets
-tools/       Data processing and inference post-processing
+tools/       Data processing, inference post-processing, and benchmark scoring
+  eval/      Model-independent evaluation and versioned reference-answer caches
 ```
 
 ## Installation
 
-See [INSTALL.md](INSTALL.md) for the full setup guide. Quick version:
+**Scoring existing predictions only?** Use Python 3.10+ and skip the model dependencies below; see [Evaluation](#evaluation).
+
+For DeltaV inference, see [INSTALL.md](INSTALL.md) for the full setup guide. Quick version:
 
 ```bash
 conda create -n deltav python=3.10 -y && conda activate deltav
@@ -172,14 +177,71 @@ budget `n_base`; each subsequent image uses a routed budget. There are two ways 
 
 > **TSIM-Tok training and reconstruction evaluation are not included in this release.** The tokenizer *model* is retained as DeltaV's visual backbone, but its training/testing code will be added back later — see [TODO / Roadmap](#todo--roadmap).
 
+## Evaluation
+
+**StructCoT is a model-independent benchmark.** Evaluate DeltaV or any other model's
+saved responses. Scoring uses only Python 3.10+ and an LLM judge API; no GPU,
+checkpoint, or inference dependencies are needed.
+
+### Download only the test split (for inference)
+
+The [dataset](https://www.modelscope.cn/datasets/wpj2003/StructCoT) publishes both
+training and test data. **Do not download `train/` or `dist_train/` for evaluation.**
+From this code repository's root:
+
+```bash
+pip install modelscope
+export DATASET_ROOT="$PWD/datasets/StructCoT"
+python -m modelscope.cli.cli download --dataset wpj2003/StructCoT \
+  test/structcot_test.json test/zebracot_test.json \
+  dist_test/StructCoT_test_images.tar --local_dir "$DATASET_ROOT"
+tar -xf "$DATASET_ROOT/dist_test/StructCoT_test_images.tar" -C "$DATASET_ROOT"
+```
+
+This selects only the two test JSONs and their shared image archive. See the
+[full guide](docs/eval_zebra_struct.md#2-download-only-the-evaluation-data) for layout,
+path preparation, and DeltaV inference commands. **Already have predictions? Skip
+this download entirely**: scoring questions and answers are bundled with the code.
+
+### Score saved predictions from any model
+
+Submit JSON/JSONL records with `id` (the original test-array index, starting at 0)
+and `prediction` (the model response). A full ordered JSON array of response
+strings and existing DeltaV `image_output.json` files are also accepted. Full
+submissions contain **5,600 StructCoT** or **4,000 Zebra-CoT** predictions.
+
+```bash
+read -rsp "DashScope API key: " DASHSCOPE_API_KEY; echo
+export DASHSCOPE_API_KEY
+export JUDGE_MODEL=qwen2.5-72b-instruct
+
+python tools/eval/evaluate.py --benchmark structcot \
+  --predictions predictions.json --output_dir outputs/my_model_structcot \
+  --model_name "My model"
+
+unset DASHSCOPE_API_KEY
+```
+
+Use `--benchmark zebracot` for Zebra-CoT. Add `--validate_only` to check inputs
+without API calls, or `--allow_partial` for a clearly marked non-leaderboard subset
+run. Outputs include per-sample results, category/overall accuracy, and a Markdown
+leaderboard row. Re-run an unchanged command to resume.
+
+The default judge platform is **Alibaba Cloud Model Studio / 百炼 (DashScope)**.
+See [API key setup](docs/eval_zebra_struct.md#4-obtain-and-configure-a-judge-api-key)
+for account/key creation, regional endpoints, model availability, and cost notes.
+**A ModelScope dataset token is not a judge API key.** See the
+[complete evaluation guide](docs/eval_zebra_struct.md) for formats, error handling,
+and the exact [leaderboard protocol](docs/eval_zebra_struct.md#6-results-and-leaderboard-protocol).
+
 ## Documentation
 
+- [docs/eval_zebra_struct.md](docs/eval_zebra_struct.md): test-only downloads, third-party predictions, judge API setup, and StructCoT / Zebra-CoT scoring.
 - [docs/eval_vlmevalkit.md](docs/eval_vlmevalkit.md): understanding benchmarks via VLMEvalKit. This guide is still being refined.
 
-The following guides will be published alongside the training / evaluation code (see [TODO / Roadmap](#todo--roadmap)):
+The following guides will be published alongside the training code (see [TODO / Roadmap](#todo--roadmap)):
 
 - [ ] `docs/data_and_token.md`: dataset format and the offline TSIM Router pipeline that turns image similarity into per-image token budgets.
-- [ ] `docs/eval_zebra_struct.md`: Zebra-CoT and StructCoT scoring.
 - [ ] `docs/advanced_zero3_gc.md`: ZeRO-3 and gradient checkpointing.
 - [ ] `docs/packing.md`: sequence packing, length computation, and packing training.
 
@@ -194,6 +256,89 @@ The following guides will be published alongside the training / evaluation code 
 </p>
 
 ## Benchmark
+
+**StructCoT is the primary benchmark**, with Zebra-CoT as a companion evaluation.
+The tables below preserve **historical reported results**, not scores rerun during
+this release. Overall is sample-level accuracy; for the complete equally sized
+categories it also equals the category macro-average before rounding. New results
+should report the model/version, benchmark version, inference settings, and judge
+configuration alongside the evaluator's `results.json` and table row.
+
+### StructCoT Leaderboard
+
+**Public test split: 5,600 samples, 7 major categories × 800.** It excludes all
+samples originating from Zebra-CoT. Scores are final-answer accuracy (%).
+[Dataset](https://www.modelscope.cn/datasets/wpj2003/StructCoT) ·
+[Evaluate your model](docs/eval_zebra_struct.md#5-score-predictions) ·
+[Category mapping](docs/eval_zebra_struct.md#readme-category-mapping)
+
+<table>
+  <thead>
+    <tr><th>Model</th><th>#Param</th><th>Strategy Planning</th><th>Spatial Planning</th><th>Logic</th><th>Math</th><th>Science</th><th>Visual Search</th><th>Jigsaw Restoration</th><th>Overall</th></tr>
+  </thead>
+  <tbody>
+    <tr><td colspan="10" align="center"><strong><em>Understanding-centric MLLMs</em></strong></td></tr>
+    <tr><td>GPT-5.2</td><td>-</td><td>43.1</td><td>33.8</td><td>42.1</td><td>76.3</td><td>50.4</td><td>87.0</td><td>57.1</td><td>55.7</td></tr>
+    <tr><td>Gemini-3.1 Pro</td><td>-</td><td>71.6</td><td>28.2</td><td>50.2</td><td>78.3</td><td>55.0</td><td>79.4</td><td>65.3</td><td>61.1</td></tr>
+    <tr><td>Gemini 3.0 Flash</td><td>-</td><td>55.0</td><td>33.3</td><td>44.8</td><td>74.8</td><td>48.4</td><td>83.6</td><td>64.9</td><td>57.8</td></tr>
+    <tr><td>Qwen3-VL</td><td>2B</td><td>3.4</td><td>31.4</td><td>4.6</td><td>41.4</td><td>29.4</td><td>80.8</td><td>39.3</td><td>32.9</td></tr>
+    <tr><td>Qwen3-VL</td><td>8B</td><td><strong>21.6</strong></td><td>25.4</td><td>13.1</td><td><strong>59.3</strong></td><td>39.3</td><td>83.8</td><td>46.5</td><td>41.3</td></tr>
+    <tr><td>InternVL3.5</td><td>8B</td><td>6.9</td><td>36.3</td><td>17.5</td><td>36.1</td><td>32.0</td><td>75.8</td><td>41.0</td><td>35.1</td></tr>
+    <tr><td>Qwen2.5-VL</td><td>72B</td><td>14.8</td><td>34.4</td><td>31.4</td><td>48.0</td><td>36.5</td><td><strong>84.9</strong></td><td>47.0</td><td>42.4</td></tr>
+    <tr><td colspan="10" align="center"><strong><em>General ULMMs</em></strong></td></tr>
+    <tr><td>Chameleon</td><td>7B</td><td>5.6</td><td>12.5</td><td>4.1</td><td>9.1</td><td>13.1</td><td>23.5</td><td>14.4</td><td>11.8</td></tr>
+    <tr><td>Anole</td><td>7B</td><td>5.4</td><td>0.1</td><td>3.8</td><td>8.9</td><td>12.8</td><td>16.8</td><td>11.4</td><td>9.9</td></tr>
+    <tr><td>Janus-pro</td><td>7B</td><td>4.3</td><td>24.4</td><td>13.4</td><td>16.6</td><td>12.0</td><td>74.6</td><td>33.9</td><td>25.6</td></tr>
+    <tr><td>OmniGen2</td><td>7B</td><td>0.6</td><td>25.3</td><td>1.5</td><td>8.4</td><td>10.1</td><td>78.1</td><td>28.5</td><td>21.8</td></tr>
+    <tr><td>Bagel</td><td>7B</td><td>16.4</td><td>24.9</td><td>12.8</td><td>49.0</td><td>35.5</td><td>84.6</td><td>49.0</td><td>38.9</td></tr>
+    <tr><td>EMU3.5</td><td>34B</td><td>2.8</td><td>29.1</td><td>4.6</td><td>19.3</td><td>15.6</td><td>21.1</td><td>18.8</td><td>15.9</td></tr>
+    <tr><td colspan="10" align="center"><strong><em>Latent Interleaved Reasoning Models</em></strong></td></tr>
+    <tr><td>Monet</td><td>7B</td><td>2.3</td><td>19.9</td><td>21.9</td><td>33.8</td><td>25.8</td><td>59.6</td><td>33.8</td><td>28.1</td></tr>
+    <tr><td>Mirage</td><td>8B</td><td>0.9</td><td>14.3</td><td>12.4</td><td>35.8</td><td>22.5</td><td>11.0</td><td>30.4</td><td>18.2</td></tr>
+    <tr><td>VPT-Det</td><td>2B</td><td>7.5</td><td>26.5</td><td>8.8</td><td>14.5</td><td>15.1</td><td>73.1</td><td>35.9</td><td>25.9</td></tr>
+    <tr><td colspan="10" align="center"><strong><em>Explicit Interleaved Reasoning ULMMs</em></strong></td></tr>
+    <tr><td>Bagel-Zebra-CoT</td><td>7B</td><td>7.0</td><td>24.6</td><td>22.8</td><td>33.3</td><td>27.3</td><td>81.0</td><td>41.9</td><td>34.0</td></tr>
+    <tr><td>ThinkMorph</td><td>7B</td><td>21.4</td><td>19.5</td><td>26.4</td><td>43.4</td><td>26.0</td><td>84.1</td><td>49.9</td><td>38.7</td></tr>
+    <tr><td><strong>DeltaV</strong> <a href="https://huggingface.co/wpj20000/DeltaV-2B">[Weight]</a></td><td><strong>2B</strong></td><td>16.4</td><td><strong>53.0</strong></td><td><strong>66.0</strong></td><td>30.1</td><td><strong>45.6</strong></td><td>84.3</td><td><strong>62.6</strong></td><td><strong>51.1</strong></td></tr>
+  </tbody>
+</table>
+
+### Zebra-CoT Leaderboard
+
+**Public test split: 4,000 samples, 4 major categories × 1,000 (18 fine-grained tasks).**
+Use the original `config` categories, not the shared image-directory categories.
+Scores are final-answer accuracy (%); use `--benchmark zebracot` to evaluate.
+
+<table>
+  <thead>
+    <tr><th>Model</th><th>#Param</th><th>2D</th><th>3D</th><th>Science</th><th>Strategy</th><th>Overall</th></tr>
+  </thead>
+  <tbody>
+    <tr><td colspan="7" align="center"><strong><em>Understanding-centric MLLMs</em></strong></td></tr>
+    <tr><td>GPT-5.2</td><td>-</td><td>67.6</td><td>19.3</td><td>73.3</td><td>54.4</td><td>53.7</td></tr>
+    <tr><td>Gemini-3.1 Pro</td><td>-</td><td>68.7</td><td>19.0</td><td>83.3</td><td>60.4</td><td>57.9</td></tr>
+    <tr><td>Gemini 3.0 Flash</td><td>-</td><td>66.5</td><td>19.4</td><td>78.4</td><td>54.5</td><td>54.7</td></tr>
+    <tr><td>Qwen3-VL</td><td>2B</td><td>44.3</td><td>13.2</td><td>30.3</td><td>9.2</td><td>24.3</td></tr>
+    <tr><td>Qwen3-VL</td><td>8B</td><td>50.7</td><td>16.9</td><td><strong>56.0</strong></td><td>22.7</td><td>36.6</td></tr>
+    <tr><td>InternVL3.5</td><td>8B</td><td>29.7</td><td>11.4</td><td>48.9</td><td>19.8</td><td>27.5</td></tr>
+    <tr><td>Qwen2.5-VL</td><td>72B</td><td>43.2</td><td>17.3</td><td>50.1</td><td>25.8</td><td>34.1</td></tr>
+    <tr><td colspan="7" align="center"><strong><em>General ULMMs</em></strong></td></tr>
+    <tr><td>Chameleon</td><td>7B</td><td>13.3</td><td>3.0</td><td>5.2</td><td>9.9</td><td>7.9</td></tr>
+    <tr><td>Anole</td><td>7B</td><td>10.8</td><td>2.8</td><td>4.8</td><td>8.5</td><td>6.7</td></tr>
+    <tr><td>Janus-pro</td><td>7B</td><td>31.7</td><td>7.7</td><td>11.5</td><td>18.0</td><td>17.2</td></tr>
+    <tr><td>OmniGen2</td><td>7B</td><td>26.5</td><td>1.3</td><td>9.6</td><td>9.7</td><td>11.8</td></tr>
+    <tr><td>Bagel</td><td>7B</td><td>43.3</td><td>14.7</td><td>44.5</td><td>16.3</td><td>29.7</td></tr>
+    <tr><td>EMU3.5</td><td>34B</td><td>10.1</td><td>3.6</td><td>8.6</td><td>11.8</td><td>8.5</td></tr>
+    <tr><td colspan="7" align="center"><strong><em>Latent Interleaved Reasoning Models</em></strong></td></tr>
+    <tr><td>Monet</td><td>7B</td><td>37.5</td><td>12.0</td><td>15.1</td><td>23.0</td><td>21.9</td></tr>
+    <tr><td>Mirage</td><td>8B</td><td>2.2</td><td>2.5</td><td>10.7</td><td>12.4</td><td>7.0</td></tr>
+    <tr><td>VPT-Det</td><td>2B</td><td>32.3</td><td>3.5</td><td>6.5</td><td>18.7</td><td>15.3</td></tr>
+    <tr><td colspan="7" align="center"><strong><em>Explicit Interleaved Reasoning ULMMs</em></strong></td></tr>
+    <tr><td>Bagel-Zebra-CoT</td><td>7B</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+    <tr><td>ThinkMorph</td><td>7B</td><td>43.0</td><td>11.6</td><td>31.4</td><td>22.9</td><td>27.2</td></tr>
+    <tr><td><strong>DeltaV</strong> <a href="https://huggingface.co/wpj20000/DeltaV-2B">[Weight]</a></td><td><strong>2B</strong></td><td><strong>78.9</strong></td><td><strong>20.0</strong></td><td>41.1</td><td><strong>38.3</strong></td><td><strong>44.6</strong></td></tr>
+  </tbody>
+</table>
 
 ### External Multimodal Reasoning and Understanding Evaluation
 
@@ -238,61 +383,6 @@ The following guides will be published alongside the training / evaluation code 
 </table>
 
 VStar, EMMA, M3CoT, MathVista, and VisuLogic are grouped as multimodal reasoning benchmarks, while MMBench, MME&#8209;P, and MMVP are grouped as multimodal understanding benchmarks.
-
-### In-domain Multimodal Reasoning Evaluation
-
-<table>
-  <thead>
-    <tr>
-      <th rowspan="2" align="center">Model</th>
-      <th rowspan="2" align="center">#Param</th>
-      <th colspan="5" align="center">Zebra-CoT</th>
-      <th colspan="8" align="center">StructCoT</th>
-    </tr>
-    <tr>
-      <th>2D</th>
-      <th>3D</th>
-      <th>Science</th>
-      <th>Strategy</th>
-      <th>Overall</th>
-      <th>Strategy Planning</th>
-      <th>Spatial Planning</th>
-      <th>Logic</th>
-      <th>Math</th>
-      <th>Science</th>
-      <th>Visual Search</th>
-      <th>Jigsaw Restoration</th>
-      <th>Overall</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr><td colspan="15" align="center"><strong><em>Understanding-centric MLLMs</em></strong></td></tr>
-    <tr><td>GPT-5.2</td><td>-</td><td>67.6</td><td>19.3</td><td>73.3</td><td>54.4</td><td>53.7</td><td>43.1</td><td>33.8</td><td>42.1</td><td>76.3</td><td>50.4</td><td>87.0</td><td>57.1</td><td>55.7</td></tr>
-    <tr><td>Gemini-3.1 Pro</td><td>-</td><td>68.7</td><td>19.0</td><td>83.3</td><td>60.4</td><td>57.9</td><td>71.6</td><td>28.2</td><td>50.2</td><td>78.3</td><td>55.0</td><td>79.4</td><td>65.3</td><td>61.1</td></tr>
-    <tr><td>Gemini 3.0 Flash</td><td>-</td><td>66.5</td><td>19.4</td><td>78.4</td><td>54.5</td><td>54.7</td><td>55.0</td><td>33.3</td><td>44.8</td><td>74.8</td><td>48.4</td><td>83.6</td><td>64.9</td><td>57.8</td></tr>
-    <tr><td>Qwen3-VL</td><td>2B</td><td>44.3</td><td>13.2</td><td>30.3</td><td>9.2</td><td>24.3</td><td>3.4</td><td>31.4</td><td>4.6</td><td>41.4</td><td>29.4</td><td>80.8</td><td>39.3</td><td>32.9</td></tr>
-    <tr><td>Qwen3-VL</td><td>8B</td><td>50.7</td><td>16.9</td><td><strong>56.0</strong></td><td>22.7</td><td>36.6</td><td><strong>21.6</strong></td><td>25.4</td><td>13.1</td><td><strong>59.3</strong></td><td>39.3</td><td>83.8</td><td>46.5</td><td>41.3</td></tr>
-    <tr><td>InternVL3.5</td><td>8B</td><td>29.7</td><td>11.4</td><td>48.9</td><td>19.8</td><td>27.5</td><td>6.9</td><td>36.3</td><td>17.5</td><td>36.1</td><td>32.0</td><td>75.8</td><td>41.0</td><td>35.1</td></tr>
-    <tr><td>Qwen2.5-VL</td><td>72B</td><td>43.2</td><td>17.3</td><td>50.1</td><td>25.8</td><td>34.1</td><td>14.8</td><td>34.4</td><td>31.4</td><td>48.0</td><td>36.5</td><td><strong>84.9</strong></td><td>47.0</td><td>42.4</td></tr>
-    <tr><td colspan="15" align="center"><strong><em>General ULMMs</em></strong></td></tr>
-    <tr><td>Chameleon</td><td>7B</td><td>13.3</td><td>3.0</td><td>5.2</td><td>9.9</td><td>7.9</td><td>5.6</td><td>12.5</td><td>4.1</td><td>9.1</td><td>13.1</td><td>23.5</td><td>14.4</td><td>11.8</td></tr>
-    <tr><td>Anole</td><td>7B</td><td>10.8</td><td>2.8</td><td>4.8</td><td>8.5</td><td>6.7</td><td>5.4</td><td>0.1</td><td>3.8</td><td>8.9</td><td>12.8</td><td>16.8</td><td>11.4</td><td>9.9</td></tr>
-    <tr><td>Janus-pro</td><td>7B</td><td>31.7</td><td>7.7</td><td>11.5</td><td>18.0</td><td>17.2</td><td>4.3</td><td>24.4</td><td>13.4</td><td>16.6</td><td>12.0</td><td>74.6</td><td>33.9</td><td>25.6</td></tr>
-    <tr><td>OmniGen2</td><td>7B</td><td>26.5</td><td>1.3</td><td>9.6</td><td>9.7</td><td>11.8</td><td>0.6</td><td>25.3</td><td>1.5</td><td>8.4</td><td>10.1</td><td>78.1</td><td>28.5</td><td>21.8</td></tr>
-    <tr><td>Bagel</td><td>7B</td><td>43.3</td><td>14.7</td><td>44.5</td><td>16.3</td><td>29.7</td><td>16.4</td><td>24.9</td><td>12.8</td><td>49.0</td><td>35.5</td><td>84.6</td><td>49.0</td><td>38.9</td></tr>
-    <tr><td>EMU3.5</td><td>34B</td><td>10.1</td><td>3.6</td><td>8.6</td><td>11.8</td><td>8.5</td><td>2.8</td><td>29.1</td><td>4.6</td><td>19.3</td><td>15.6</td><td>21.1</td><td>18.8</td><td>15.9</td></tr>
-    <tr><td colspan="15" align="center"><strong><em>Latent Interleaved Reasoning Models</em></strong></td></tr>
-    <tr><td>Monet</td><td>7B</td><td>37.5</td><td>12.0</td><td>15.1</td><td>23.0</td><td>21.9</td><td>2.3</td><td>19.9</td><td>21.9</td><td>33.8</td><td>25.8</td><td>59.6</td><td>33.8</td><td>28.1</td></tr>
-    <tr><td>Mirage</td><td>8B</td><td>2.2</td><td>2.5</td><td>10.7</td><td>12.4</td><td>7.0</td><td>0.9</td><td>14.3</td><td>12.4</td><td>35.8</td><td>22.5</td><td>11.0</td><td>30.4</td><td>18.2</td></tr>
-    <tr><td>VPT-Det</td><td>2B</td><td>32.3</td><td>3.5</td><td>6.5</td><td>18.7</td><td>15.3</td><td>7.5</td><td>26.5</td><td>8.8</td><td>14.5</td><td>15.1</td><td>73.1</td><td>35.9</td><td>25.9</td></tr>
-    <tr><td colspan="15" align="center"><strong><em>Explicit Interleaved Reasoning ULMMs</em></strong></td></tr>
-    <tr><td>Bagel-Zebra-CoT</td><td>7B</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>7.0</td><td>24.6</td><td>22.8</td><td>33.3</td><td>27.3</td><td>81.0</td><td>41.9</td><td>34.0</td></tr>
-    <tr><td>ThinkMorph</td><td>7B</td><td>43.0</td><td>11.6</td><td>31.4</td><td>22.9</td><td>27.2</td><td>21.4</td><td>19.5</td><td>26.4</td><td>43.4</td><td>26.0</td><td>84.1</td><td>49.9</td><td>38.7</td></tr>
-    <tr><td><strong>DeltaV</strong> <a href="https://huggingface.co/wpj20000/DeltaV-2B">[Weight]</a></td><td><strong>2B</strong></td><td><strong>78.9</strong></td><td><strong>20.0</strong></td><td>41.1</td><td><strong>38.3</strong></td><td><strong>44.6</strong></td><td>16.4</td><td><strong>53.0</strong></td><td><strong>66.0</strong></td><td>30.1</td><td><strong>45.6</strong></td><td>84.3</td><td><strong>62.6</strong></td><td><strong>51.1</strong></td></tr>
-  </tbody>
-</table>
-
-The StructCoT test set excludes all samples originating from the Zebra-CoT dataset.
 
 ## Acknowledgements
 

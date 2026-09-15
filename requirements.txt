@@ -27,7 +27,6 @@ tabulate
 # MultiScaleDeformableAttention  # compiled op under tsim_tok/modules/ops (see INSTALL.md);
 #                                # a pure-PyTorch fallback is used if not built.
 
-# NOTE: DeltaV/TSIM-Tok training and evaluation dependencies (deepspeed, wandb, tensorboard,
-# kornia, lmdb, torch-fidelity, tensorflow, nvidia-cudnn, openai, requests) are not needed for
-# inference and were dropped here; they will return with the training/evaluation code.
-
+# StructCoT/Zebra-CoT scoring uses only the Python 3.10+ standard library.
+# Install modelscope separately only when downloading the public test data.
+# Training and tokenizer reconstruction-evaluation dependencies remain out of scope.

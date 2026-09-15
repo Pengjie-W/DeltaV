@@ -1,0 +1,38 @@
+{
+  "version": "2026-09-15",
+  "dataset_repo": "wpj2003/StructCoT",
+  "id_convention": "zero-based index in the published test JSON array",
+  "benchmarks": {
+    "structcot": {
+      "test_file": "test/structcot_test.json",
+      "test_sha256": "c21632b1797863145b398a35e52247e12e703c87f58a69862599eb485a52eb9a",
+      "cache_file": "structcot_gt.json",
+      "cache_sha256": "874c1985b9ebe9531c9b842dc29ea4fa34ff229735fb0be40bb8f4d0f8a22429",
+      "legacy_cache_sha256": "327fffd0485e90268e2e1976c0e03adb0f56d58bf02fdaeefb71d95c12cac0af",
+      "size": 5600,
+      "category_counts": {
+        "Strategic Game and Planning": 800,
+        "Logical and Abstract Reasoning": 800,
+        "Spatial Perception and Embodied Planning": 800,
+        "Mathematical and Algorithmic Reasoning": 800,
+        "Natural Science and Domain-Specific Reasoning": 800,
+        "Visual Search": 800,
+        "Image Restoration and Jigsaw Reasoning": 800
+      }
+    },
+    "zebracot": {
+      "test_file": "test/zebracot_test.json",
+      "test_sha256": "29957993f9a83959cbecb3c15baca46290477bfcc43625258e9c588146209d45",
+      "cache_file": "zebracot_gt.json",
+      "cache_sha256": "092a56d2554f4a84f4861bf33cc0eb65aa0bdf17ca841ad2d68035160fc1b4b8",
+      "legacy_cache_sha256": "f5cf9d59d3007d871db4022302a114ea701d20b4a04f3c4ce4a5c733ff30a478",
+      "size": 4000,
+      "category_counts": {
+        "Visual Logic & Strategic Games": 1000,
+        "2D Visual Reasoning": 1000,
+        "3D Visual Reasoning": 1000,
+        "Scientific Reasoning": 1000
+      }
+    }
+  }
+}

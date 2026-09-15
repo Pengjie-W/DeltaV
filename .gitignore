@@ -26,6 +26,8 @@ id_rsa*
 runs/
 wandb/
 outputs/
+datasets/
+test_json/
 checkpoints/
 tmp/
 temp/
